@@ -1,0 +1,4 @@
+id,date,type,amount,label,certainty,linkedPaymentId
+SCH-1,2026-10-19,in,180000,客戶貨款（合成）,expected,
+SCH-2,2026-10-21,out,200000,本月薪資（合成）,confirmed,
+SCH-3,2026-10-24,out,70000,租金與費用（合成）,confirmed,

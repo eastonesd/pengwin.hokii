@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#182c48">
+  <meta name="description" content="Hokii 錢掌櫃：付款前核對文件、收款資訊與 30 天資金。Pengwin 競賽 MVP。">
+  <title>Hokii 錢掌櫃 · 付錢前，先問掌櫃</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Hokii 錢掌櫃首頁">
+      <span class="penguin" aria-hidden="true"><i class="belly"></i><i class="eye left"></i><i class="eye right"></i><i class="beak"></i><i class="feet"></i></span>
+      <span class="brand-copy"><strong>Hokii <span>錢掌櫃</span></strong><small>付錢前，先問掌櫃</small></span>
+    </a>
+    <div class="header-meta"><span class="prototype-pill">Pengwin · MVP</span><span id="apiStatus" class="api-pill"><i></i>AI 連線確認中</span></div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy"><p class="eyebrow">PAYMENT CHECK · CASHFLOW CARE</p><h1>一筆付款，<br class="mobile-break">兩道安心的核對。</h1><p>核對收款資訊，也看看付完這筆錢，<br class="desktop-break">公司接下來 30 天的資金夠不夠。</p></div>
+      <div class="hero-note"><span class="note-line"></span><strong>掌櫃的工作，就是先問清楚。</strong><p>每個提醒都有依據，每次覆核都有紀錄。<br>最後的決定，交給您。</p><div class="hero-stamp"><span>文件核對</span><b>＋</b><span>資金試算</span></div></div>
+    </section>
+
+    <section class="scenario-section" aria-label="選擇示範情境">
+      <div class="section-caption"><span><b>親手試一筆</b><small>6 組合成資料，點選即可體驗</small></span><button id="blankCase" class="text-button" type="button">＋ 開始空白案例</button></div>
+      <div id="scenarioChips" class="scenario-chips"></div>
+      <div class="case-note"><span id="dataMode" class="small-tag">合成示範資料</span><span id="scenarioDescription">載入示範情境中…</span><button id="resetScenario" type="button" class="text-button">重設此情境</button></div>
+    </section>
+
+    <div class="step-track" aria-label="核對流程"><span class="active"><b>1</b>準備付款資料</span><i></i><span><b>2</b>確認關鍵欄位</span><i></i><span><b>3</b>查看雙燈提醒</span><i></i><span><b>4</b>記錄人工覆核</span></div>
+
+    <div class="workspace">
+      <div class="input-column">
+        <section class="card document-card" aria-labelledby="documentHeading">
+          <div class="card-heading"><div><span class="card-kicker">01 · 資料準備</span><h2 id="documentHeading">把這筆請款交給掌櫃</h2></div><span id="documentBadge" class="tiny-badge">示範文件</span></div>
+          <div class="input-tabs" role="tablist"><button id="textTab" class="active" type="button" role="tab" aria-selected="true">貼上文字</button><button id="fileTab" type="button" role="tab" aria-selected="false">上傳文件</button></div>
+          <div id="textPanel" role="tabpanel"><label class="sr-only" for="documentText">請款單或廠商通知文字</label><textarea id="documentText" class="document-text" rows="8" placeholder="貼上請款單、廠商 Email 或 LINE 訊息…"></textarea><div class="field-help">可同時貼上請款內容與廠商通知，保留日期、金額及帳號。</div></div>
+          <div id="filePanel" role="tabpanel" hidden><label id="dropZone" class="drop-zone" for="documentFile"><span class="upload-symbol" aria-hidden="true">↑</span><strong>選擇或拖曳文件</strong><span>PDF、PNG、JPG · 最多 8 MB</span><input id="documentFile" type="file" accept=".pdf,.png,.jpg,.jpeg,.webp,application/pdf,image/png,image/jpeg,image/webp"><b id="selectedFileName">尚未選擇文件</b></label><p class="field-help">附件會以原檔傳送，請先去識別化；無法替附件自動遮罩。</p></div>
+          <div class="privacy-options"><label class="checkbox-label"><input id="maskText" type="checkbox" checked><span>遮罩送出文字中的 Email 與電話</span></label><label class="checkbox-label"><input id="apiConsent" type="checkbox"><span>我已確認內容，同意將本次資料送至 OpenAI API</span></label></div>
+          <div class="analyze-row"><button id="analyzeButton" class="button button-primary" type="button"><span class="sparkle" aria-hidden="true">✦</span><span id="analyzeLabel">用 AI 整理欄位</span></button><button id="showDocument" class="button button-quiet" type="button">查看原文</button></div>
+          <p id="extractionNote" class="inline-note">示範欄位已預填，可直接修改測試。AI 僅在實際連線成功時標示。</p>
+        </section>
+
+        <section class="card payment-card" aria-labelledby="paymentHeading">
+          <div class="card-heading"><div><span class="card-kicker">02 · 人工確認</span><h2 id="paymentHeading">這筆錢，要付給誰？</h2></div><span id="confirmationBadge" class="tiny-badge">待確認</span></div>
+          <div class="form-grid">
+            <label class="full">供應商名稱<input id="supplierName" data-payment="supplierName" type="text" autocomplete="off" placeholder="例如：日日原料有限公司"></label>
+            <label>統一編號<input id="taxId" data-payment="taxId" type="text" inputmode="numeric" maxlength="8" placeholder="8 位統一編號"></label>
+            <label>請款／發票編號<input id="invoiceNo" data-payment="invoiceNo" type="text" placeholder="例如：AB12345678"></label>
+            <label class="full">本次收款帳號<input id="account" data-payment="account" type="text" inputmode="numeric" autocomplete="off" placeholder="保留開頭的 0，輸入完整帳號"><span class="field-help">帳號以文字保存，避免遺失開頭的 0。</span></label>
+            <label>付款金額<input id="amount" data-payment="amount" type="number" min="0" step="1" placeholder="輸入金額"></label>
+            <label>付款日期<input id="dueDate" data-payment="dueDate" type="date"></label>
+            <label>幣別<select id="currency" data-payment="currency"><option value="">未辨識 · 請確認</option><option value="TWD">TWD · 新臺幣</option><option value="USD">USD · 美元（暫不支援試算）</option></select></label>
+            <div class="notice-flags"><label class="checkbox-label"><input id="emailChangeRequest" data-payment="emailChangeRequest" type="checkbox"><span>通知要求更改帳號</span></label><label class="checkbox-label"><input id="emailUrgency" data-payment="emailUrgency" type="checkbox"><span>通知帶有催促／保密要求</span></label></div>
+          </div>
+          <div id="supplierBaseline" class="baseline-box"></div>
+          <details class="baseline-editor"><summary>建立／補充已確認的供應商基準</summary><p class="field-help">依既有合約、過往紀錄或可信窗口建立；原帳號會保留，請勿直接以新通知取代。</p><div class="form-grid"><label class="full">已確認的既有收款帳號<input id="baselineAccount" type="text" inputmode="numeric" placeholder="由可信來源取得的帳號"></label><label class="full">原先保存的電話／可信窗口<input id="baselinePhone" type="text" placeholder="例如：02-1234-5678 會計王小姐"></label></div><button id="saveBaseline" class="button button-small" type="button">保存已確認的基準</button></details>
+          <div class="confirmation-row"><button id="confirmFields" class="button button-navy" type="button">我已核對上述欄位</button><span id="fieldsConfirmedText">請對照原文確認帳號與金額</span></div>
+        </section>
+
+        <section class="card evidence-card" aria-labelledby="evidenceHeading"><div class="card-heading compact"><div><span class="card-kicker">SOURCE · 可追溯依據</span><h2 id="evidenceHeading">原文裡，怎麼寫的？</h2></div></div><div id="documentEvidence" class="document-evidence"></div></section>
+      </div>
+
+      <div class="result-column">
+        <section class="results-section" aria-labelledby="resultsHeading"><div class="result-heading"><h2 id="resultsHeading">掌櫃的雙燈提醒</h2><span id="evaluationTime">依目前輸入即時計算</span></div><div class="signal-grid">
+          <article id="safetySignal" class="signal-card level-gray"><div class="signal-top"><span class="signal-label">付款核對</span><span class="status-dot" aria-hidden="true"></span></div><div class="signal-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 4.5 6v5.5c0 4.7 7.5 9.5 7.5 9.5s7.5-4.8 7.5-9.5V6L12 3Z"/><path d="m8.5 11.8 2.4 2.4 4.8-4.8"/></svg></div><p id="safetyLevel" class="signal-level">資料待核對</p><h3 id="safetyTitle">載入中</h3><p id="safetyCaption" class="signal-caption"></p></article>
+          <article id="cashSignal" class="signal-card level-gray"><div class="signal-top"><span class="signal-label">資金試算</span><span class="status-dot" aria-hidden="true"></span></div><div class="signal-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 9h18M15 14h3M6 14h3"/></svg></div><p id="cashLevel" class="signal-level">資料待核對</p><h3 id="cashTitle">載入中</h3><p id="cashCaption" class="signal-caption"></p></article>
+        </div><p class="signal-disclaimer"><span aria-hidden="true">ⓘ</span> 只根據已提供的資料核對。銀行灰名單、警示帳戶與受款戶名未查詢。</p></section>
+
+        <section class="card findings-card" aria-labelledby="findingsHeading"><div class="card-heading compact"><div><span class="card-kicker">INSIGHT · 每個提醒都有原因</span><h2 id="findingsHeading">掌櫃先幫您圈出重點</h2></div><span id="findingCount" class="tiny-badge"></span></div><div id="findingsList" class="findings-list" aria-live="polite"></div><div id="nextActions" class="next-actions"></div></section>
+
+        <section class="card cash-card" aria-labelledby="cashHeading"><div class="card-heading"><div><span class="card-kicker">03 · 看見未來 30 天</span><h2 id="cashHeading">付完之後，還剩多少？</h2></div><span class="tiny-badge">TWD</span></div>
+          <div class="cash-inputs"><label>目前可用餘額<input id="cashBalance" type="number" min="0" step="1" placeholder="尚未提供"></label><label>最低保留金<input id="cashReserve" type="number" min="0" step="1"></label><label>餘額資料日期<input id="balanceDate" type="date"></label></div>
+          <label class="checkbox-label schedule-checkbox"><input id="scheduleComplete" type="checkbox"><span>我已列入薪資、租金、稅款及未來 30 天的主要收付款</span></label>
+          <div class="cash-metrics"><div><span>付款日期末餘額</span><strong id="afterPayment">—</strong><small id="paymentDateLabel">包含同日收付款</small></div><div><span>30 天最低餘額</span><strong id="minBalance">—</strong><small id="minDate">等待資料</small></div><div><span>預估資金缺口</span><strong id="cashGap">—</strong><small>低於 0 的最大金額</small></div></div>
+          <div class="chart-heading"><span>現金餘額趨勢</span><div class="chart-legend"><span><i class="solid"></i>目前排程</span><span><i class="dashed"></i>預期收款延後 7 天</span></div></div>
+          <div id="cashChart" class="cash-chart" role="img" aria-label="30 天現金餘額趨勢圖"></div><p class="field-help chart-note">情境試算依輸入資料計算；預期收款可延後，申請中的貸款不列為可用資金。本筆付款只扣一次。</p>
+
+          <div class="schedule-heading"><h3>未來收付款排程</h3><div><button id="importSchedule" class="text-button" type="button">匯入 CSV</button><input id="scheduleCsv" type="file" accept=".csv,text/csv" hidden><button id="downloadCsv" class="text-button" type="button">下載範本</button></div></div>
+          <div class="table-scroll"><table class="schedule-table"><thead><tr><th scope="col">日期 / 項目</th><th scope="col">收付</th><th scope="col">金額</th><th scope="col"><span class="sr-only">刪除</span></th></tr></thead><tbody id="scheduleRows"></tbody></table></div>
+          <form id="addScheduleForm" class="add-schedule"><label class="sr-only" for="newDate">排程日期</label><input id="newDate" type="date" required><label class="sr-only" for="newLabel">項目名稱</label><input id="newLabel" type="text" placeholder="例如：下週薪資" required maxlength="80"><label class="sr-only" for="newType">收付類型</label><select id="newType"><option value="out">支出</option><option value="in">收入</option></select><label class="sr-only" for="newAmount">排程金額</label><input id="newAmount" type="number" min="1" step="1" placeholder="金額" required><label class="sr-only" for="newCertainty">確定性</label><select id="newCertainty"><option value="confirmed">已確認</option><option value="expected">預期</option></select><button class="button button-small" type="submit" aria-label="加入收付款排程">＋ 加入</button></form>
+          <p class="field-help csv-help">CSV 欄位：date,type,amount,label,certainty；type 使用 in / out。匯入會加入排程，不取代已有資料。</p>
+        </section>
+      </div>
+    </div>
+
+    <section class="review-card" aria-labelledby="reviewHeading"><div class="review-intro"><span class="card-kicker">04 · 人工覆核留痕</span><h2 id="reviewHeading">問清楚了，再做決定。</h2><p>將核對依據與確認結果留存。<br>任何關鍵資料變更，都需要重新覆核。</p><div id="reviewStatus" class="review-status"><i></i><span>尚未完成覆核</span></div></div><div class="review-form"><div class="review-fields"><label>覆核人姓名<input id="reviewBy" type="text" placeholder="輸入覆核人姓名" autocomplete="off"></label><label>查證與覆核說明<input id="reviewNote" type="text" placeholder="例如：已依既有電話聯絡王小姐確認" autocomplete="off"></label></div><label class="checkbox-label callback-confirm"><input id="accountChangeConfirmed" type="checkbox"><span>若收款帳號變更，我已透過<strong>原先保存的電話／可信窗口</strong>確認，並記錄查證方式</span></label><div class="review-actions"><button id="approveButton" class="button button-primary" type="button">記錄覆核完成</button><button id="exportHtml" class="button button-outline" type="button">下載核對紀錄</button><button id="exportJson" class="text-button" type="button">JSON</button><button id="fundingSummary" class="text-button" type="button">資金需求摘要 ↗</button></div><p class="field-help">此工具不執行轉帳、不核准貸款。覆核紀錄儲存在本機瀏覽器，僅作 MVP 展示，非銀行授權憑證。</p><p id="reviewHelp" class="review-help" aria-live="polite"></p></div></section>
+
+    <footer class="footer"><div class="footer-brand">Hokii 錢掌櫃 <span>·</span> Pengwin</div><p>臺灣中小企業銀行校園金融科技創意挑戰賽 · 企業金融服務創新<br>競賽原型與合成示範；非臺灣企銀正式服務。</p><a href="https://www.tbb.com.tw/zh-tw/business/loans/online-apply/microenterprise-online-loans" target="_blank" rel="noopener noreferrer">臺企銀微企享 e 貸官方入口 ↗</a></footer>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <dialog id="sourceDialog" class="source-dialog"><div class="dialog-heading"><div><span class="card-kicker">原文依據</span><h2 id="sourceTitle">本次文件</h2></div><button id="closeDialog" class="icon-button" type="button" aria-label="關閉原文視窗">×</button></div><div id="sourceContent" class="source-content"></div><div id="sourceFilePreview" class="file-preview"></div><p class="field-help">請以原始文件及可信聯絡窗口確認；文字擷取可能需要人工修正。</p></dialog>
+  <script src="engine.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

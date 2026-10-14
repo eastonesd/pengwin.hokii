@@ -1,0 +1,2 @@
+id,date,type,amount,label,certainty,linkedPaymentId
+PAYROLL,2026-10-21,out,520000,下週薪資（合成）,confirmed,

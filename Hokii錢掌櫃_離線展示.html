@@ -1,0 +1,1128 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#182c48">
+  <meta name="description" content="Hokii 錢掌櫃：付款前核對文件、收款資訊與 30 天資金。Pengwin 競賽 MVP。">
+  <title>Hokii 錢掌櫃 · 付錢前，先問掌櫃</title>
+  <style>:root{--navy:#182c48;--navy-soft:#2d4260;--orange:#e76921;--orange-dark:#b94c13;--cream:#f6f4ef;--paper:#fff;--ink:#20334c;--muted:#718096;--line:#e6e8eb;--green:#287558;--green-bg:#edf7f0;--yellow:#956215;--yellow-bg:#fff7e7;--red:#b54641;--red-bg:#fff0ed;--gray:#66758a;--gray-bg:#f0f3f6;--shadow:0 4px 18px rgba(24,44,72,.035)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--cream);color:var(--ink);font-family:"Microsoft JhengHei","PingFang TC",system-ui,-apple-system,sans-serif;line-height:1.6;font-size:14px}button,input,select,textarea{font:inherit}button,a,input,select,textarea{-webkit-tap-highlight-color:transparent}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.48}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #e7692160;outline-offset:3px}a{color:inherit;text-decoration:none}[hidden]{display:none!important}h1,h2,h3,p{margin:0}button{border:0}input[type=number]{font-variant-numeric:tabular-nums}input[type=checkbox]{accent-color:var(--orange);width:15px;height:15px;flex:0 0 15px;margin:3px 0 0}input:not([type=checkbox]):not([type=file]),select,textarea{width:100%;border:1px solid #dce1e7;border-radius:8px;background:#fff;color:var(--ink);padding:10px 11px;min-height:42px;transition:border-color .15s,box-shadow .15s}input:focus,select:focus,textarea:focus{border-color:var(--orange);box-shadow:0 0 0 3px #e7692110;outline:none}input::placeholder,textarea::placeholder{color:#99a2af;font-size:12px}input[type=date]{font-size:12px}label{display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:600;line-height:1.5}textarea{resize:vertical;line-height:1.8}strong{font-weight:700}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.topbar{min-height:86px;background:var(--navy);color:#fff;padding:17px max(28px,calc((100vw - 1280px)/2));display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{display:flex;align-items:center;gap:13px}.brand-copy{display:flex;flex-direction:column;gap:1px}.brand-copy strong{font-size:24px;letter-spacing:.3px;line-height:1.35}.brand-copy strong span{font-size:19px;letter-spacing:2px;margin-left:6px}.brand-copy small{font-size:10px;letter-spacing:2.5px;color:#d2dce8}.penguin{position:relative;display:block;width:45px;height:50px;border-radius:13px;background:#ec793c;overflow:hidden;flex-shrink:0}.penguin:before{content:"";position:absolute;width:31px;height:39px;background:var(--navy);border-radius:50% 50% 40% 40%;left:7px;top:7px}.penguin .belly{position:absolute;width:22px;height:25px;background:#fff3de;border-radius:45% 45% 45% 45%;left:12px;top:20px}.penguin .eye{position:absolute;background:#fff3de;border-radius:50%;width:5px;height:7px;top:14px}.penguin .eye.left{left:17px}.penguin .eye.right{right:12px}.penguin .beak{position:absolute;width:8px;height:6px;background:#f3b75b;left:20px;top:23px;border-radius:1px 1px 5px 5px}.penguin .feet{position:absolute;width:22px;height:5px;background:#f3b75b;left:12px;bottom:3px;border-radius:5px}.header-meta{display:flex;align-items:center;gap:14px;font-size:11px;white-space:nowrap}.prototype-pill{border:1px solid #ffffff32;border-radius:5px;letter-spacing:1px;padding:4px 8px;color:#ccd6e2}.api-pill{display:flex;align-items:center;gap:7px;color:#c9d6e6}.api-pill i{width:6px;height:6px;border-radius:50%;background:#8d9cac}.api-pill.connected i{background:#80d8a9}.api-pill.connected{color:#bfe5ce}
+main{max-width:1280px;margin:auto;padding:0 28px}.hero{padding:44px 0 34px;display:flex;align-items:center;justify-content:space-between;gap:40px}.eyebrow{font-size:10px;letter-spacing:2px;color:var(--orange);font-weight:800;margin-bottom:12px}.hero h1{font-size:38px;line-height:1.35;letter-spacing:1px;font-weight:800}.hero-copy>p:last-child{font-size:14px;color:#6c7a8e;margin-top:13px;line-height:1.8}.hero-note{width:348px;position:relative;background:#f0ece4;border:1px solid #e9e3d8;border-radius:12px;padding:23px 26px;flex:0 0 348px}.note-line{position:absolute;left:0;top:24px;width:3px;height:25px;background:var(--orange)}.hero-note strong{font-size:14px;letter-spacing:.5px}.hero-note p{font-size:12px;line-height:1.8;color:#778091;margin-top:6px}.hero-stamp{display:flex;align-items:center;gap:11px;margin-top:15px}.hero-stamp span{font-size:11px;font-weight:600;background:#fff9f0;border-radius:4px;padding:4px 10px;color:#805c3b}.hero-stamp b{color:#bca786;font-size:14px}.mobile-break{display:none}
+.scenario-section{padding:18px 22px;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}.section-caption{display:flex;align-items:center;justify-content:space-between;gap:15px}.section-caption>span{display:flex;align-items:baseline;gap:10px}.section-caption b{font-size:13px}.section-caption small{font-size:10px;color:var(--muted)}.text-button{background:none;color:var(--orange-dark);font-size:11px;font-weight:600;padding:4px 1px;border-radius:4px;white-space:nowrap}.text-button:hover{text-decoration:underline}.scenario-chips{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:9px;margin-top:13px}.scenario-chip{display:flex;align-items:center;justify-content:center;gap:7px;border:1px solid #e3e7eb;border-radius:7px;background:#fafbfc;min-height:40px;padding:8px 6px;color:#607089;font-size:11px;font-weight:700;white-space:nowrap;transition:all .15s}.scenario-chip span{display:block;width:5px;height:5px;border-radius:50%;background:#9cabb7}.scenario-chip:hover{border-color:#e7692170;background:#fff9f3}.scenario-chip.active{border-color:var(--orange);color:var(--orange-dark);background:#fff3e9;box-shadow:0 0 0 1px #e7692110}.scenario-chip.active span{background:var(--orange)}.case-note{display:flex;align-items:center;gap:10px;font-size:11px;color:#6f7d90;margin-top:12px}.case-note>span:nth-child(2){flex:1}.small-tag{background:#edf1f5;color:#5e6e83;padding:2px 6px;border-radius:3px;font-size:9px;font-weight:700;white-space:nowrap}.step-track{display:flex;align-items:center;justify-content:center;gap:20px;margin:25px 0 21px;color:#8190a1;font-size:11px}.step-track span{display:flex;align-items:center;gap:7px;white-space:nowrap}.step-track b{width:19px;height:19px;border:1px solid #d4dbe1;color:#8b98a7;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;font-size:10px;font-weight:600}.step-track i{height:1px;background:#dce1e6;max-width:80px;width:5%;}.step-track .active{color:var(--orange-dark);font-weight:600}.step-track .active b{border-color:var(--orange);background:var(--orange);color:white}
+.workspace{display:grid;grid-template-columns:minmax(0,410px) minmax(0,1fr);gap:22px;align-items:start}.input-column,.result-column{display:flex;flex-direction:column;gap:18px}.card{border:1px solid var(--line);border-radius:12px;background:#fff;padding:24px;box-shadow:var(--shadow)}.card-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:19px}.card-heading.compact{margin-bottom:14px}.card-kicker{color:#94a0ae;font-size:9px;letter-spacing:1.1px;font-weight:700;display:block;margin-bottom:5px}.card-heading h2,.result-heading h2{font-size:17px;line-height:1.4;letter-spacing:.5px}.tiny-badge{font-size:9px;color:#7b8798;background:#f2f4f6;border-radius:5px;padding:4px 7px;white-space:nowrap}.tiny-badge.confirmed{color:var(--green);background:var(--green-bg)}.tiny-badge.real-ai{color:#644ba2;background:#f0ecfa}.input-tabs{display:flex;border:1px solid #e5e8ec;background:#f5f6f8;padding:3px;border-radius:7px;margin-bottom:14px}.input-tabs button{flex:1;background:none;padding:7px;font-size:11px;font-weight:600;border-radius:5px;color:#8590a1}.input-tabs button.active{background:#fff;color:var(--navy);box-shadow:0 2px 5px #182c480b}.document-text{font-size:12px!important;min-height:200px;background:#fcfcfd!important}.field-help{font-size:10px;font-weight:400;color:#8993a2;line-height:1.6;margin-top:5px}.privacy-options{display:flex;flex-direction:column;gap:8px;padding:13px 0 15px}.checkbox-label{display:flex;flex-direction:row;align-items:flex-start;gap:7px;font-size:10px;font-weight:400;color:#6e7c8f;line-height:1.7}.button{min-height:40px;padding:9px 16px;border-radius:7px;font-size:12px;font-weight:700;border:1px solid transparent;display:inline-flex;align-items:center;justify-content:center;gap:7px;line-height:1.6;transition:all .15s;white-space:nowrap}.button-primary{background:var(--orange);color:#fff;box-shadow:0 3px 7px #e7692120}.button-primary:hover{background:#d95e1a;box-shadow:0 4px 10px #e7692130}.button-navy{background:var(--navy);color:white}.button-navy:hover{background:#263d5b}.button-quiet{background:#f6f7f8;color:#6f7c8d;font-weight:500}.button-outline{background:white;border-color:#dee3e8;color:#53637a}.button-outline:hover{border-color:#a0aebb}.button-small{background:#fff4ec;color:var(--orange-dark);font-size:10px;min-height:34px;padding:5px 10px}.sparkle{font-size:18px;line-height:1}.analyze-row{display:flex;gap:9px}.analyze-row .button-primary{flex:1}.inline-note{color:#8590a0;font-size:10px;line-height:1.7;margin-top:11px}.inline-note.warning{color:var(--yellow);background:var(--yellow-bg);border-radius:5px;padding:8px}.inline-note.error{color:var(--red);background:var(--red-bg);border-radius:5px;padding:8px}.drop-zone{min-height:200px;border:1px dashed #cdd6e0;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:6px;background:#fafbfd;padding:18px;text-align:center;cursor:pointer}.drop-zone.dragging{background:#fff4ec;border-color:var(--orange)}.drop-zone>span:not(.upload-symbol){font-size:10px;font-weight:400;color:#8a97a8}.drop-zone>strong{font-size:12px}.drop-zone input{width:100%;max-width:250px;font-size:10px;font-weight:400;color:#7c8b9c}.drop-zone>b{font-size:10px;max-width:100%;overflow-wrap:anywhere;color:var(--orange-dark);font-weight:500}.upload-symbol{display:flex;align-items:center;justify-content:center;background:#eaf0f5;width:38px;height:38px;border-radius:50%;color:#68809a;font-size:23px;font-weight:400;margin-bottom:4px}
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px 12px}.form-grid .full{grid-column:1/-1}.form-grid label input,.form-grid select{font-size:12px}.notice-flags{display:flex;flex-direction:column;justify-content:center;gap:5px;padding-top:20px}.notice-flags .checkbox-label{font-size:9px}.baseline-box{border:1px solid #e9ecf0;background:#f8fafb;border-radius:8px;padding:12px 13px;margin-top:16px;font-size:11px;color:#6b7a8e}.baseline-box h4{font-size:10px;margin:0 0 6px;color:#5c6f88}.baseline-box p{font-size:10px;line-height:1.9;overflow-wrap:anywhere}.baseline-box strong{font-weight:600;color:#3d536f}.baseline-box .no-baseline{color:#8492a3;font-size:10px}.confirmation-row{display:flex;flex-direction:column;gap:8px;margin-top:15px}.confirmation-row .button{font-size:11px}.confirmation-row>span{font-size:9px;color:#9a9fab;text-align:center}.document-evidence{display:flex;flex-direction:column;gap:8px}.evidence-link{background:#fbfcfd;border:1px solid #edf0f3;border-radius:7px;padding:10px 12px;text-align:left;display:flex;flex-direction:column;gap:3px;width:100%;color:#64748a}.evidence-link:hover{border-color:#e7692170;background:#fffaf6}.evidence-link span{color:var(--orange-dark);font-size:9px;font-weight:600}.evidence-link p{font-size:11px;line-height:1.7;overflow-wrap:anywhere}.evidence-link small{font-size:9px;color:#9ba6b5}.empty-hint{font-size:11px;color:#92a0b0;padding:8px 0;line-height:1.8}.result-heading{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:0 0 13px;padding:0 1px}.result-heading h2{font-size:16px}.result-heading>span{font-size:9px;color:#95a0ad}.signal-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.signal-card{border-radius:11px;padding:18px 20px 17px;position:relative;overflow:hidden;border:1px solid transparent;min-height:192px;background:var(--gray-bg);color:var(--gray)}.signal-card.level-green{background:var(--green-bg);color:var(--green);border-color:#dbeadd}.signal-card.level-yellow{background:var(--yellow-bg);color:var(--yellow);border-color:#f3e6cb}.signal-card.level-red{background:var(--red-bg);color:var(--red);border-color:#f2dcd7}.signal-card.level-gray{background:var(--gray-bg);color:var(--gray);border-color:#e3e8ee}.signal-top{display:flex;align-items:center;justify-content:space-between}.signal-label{font-size:11px;font-weight:700;letter-spacing:.5px}.status-dot{width:9px;height:9px;border-radius:50%;background:currentColor;box-shadow:0 0 0 5px #ffffff60}.signal-icon{position:absolute;right:16px;top:57px;opacity:.2;width:43px;height:43px}.signal-icon svg{width:100%;fill:none;stroke:currentColor;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}.signal-level{font-size:9px;letter-spacing:.5px;margin-top:18px;opacity:.8}.signal-card h3{font-size:20px;font-weight:800;line-height:1.4;margin-top:2px;max-width:88%;letter-spacing:.1px}.signal-caption{font-size:10px;line-height:1.7;margin-top:9px;opacity:.85;min-height:32px}.signal-disclaimer{font-size:9px;color:#8a96a5;margin:9px 1px 0;display:flex;gap:4px;align-items:flex-start}.signal-disclaimer>span{font-size:12px;line-height:1.2}.findings-card{padding-top:21px;padding-bottom:19px}.findings-list{display:flex;flex-direction:column;gap:10px}.finding{display:grid;grid-template-columns:24px 1fr;gap:8px;border-bottom:1px solid #edf0f3;padding:0 0 11px}.finding:last-child{border-bottom:0;padding-bottom:0}.finding-symbol{width:22px;height:22px;border-radius:50%;background:#f1f4f7;color:#7c8a9c;display:flex;align-items:center;justify-content:center;font-size:11px;margin-top:1px}.finding.level-red .finding-symbol{background:var(--red-bg);color:var(--red)}.finding.level-yellow .finding-symbol{background:var(--yellow-bg);color:var(--yellow)}.finding.level-green .finding-symbol{background:var(--green-bg);color:var(--green)}.finding-message{font-size:12px;font-weight:600;line-height:1.65;color:#40536d}.finding-evidence{font-size:10px;color:#8a96a6;margin-top:3px;overflow-wrap:anywhere}.finding-action{font-size:10px;color:#7c8797;margin-top:3px}.finding-source{color:var(--orange-dark);background:none;padding:3px 0;font-size:9px;display:inline-block;text-align:left}.finding-source:hover{text-decoration:underline}.next-actions{border-top:1px solid #edf0f3;padding-top:10px;margin-top:14px;display:flex;gap:7px;align-items:flex-start;font-size:10px;color:#737f90}.next-actions strong{color:var(--orange-dark);white-space:nowrap;font-size:10px}.next-actions p{line-height:1.8}.cash-card{padding-top:22px}.cash-inputs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px}.cash-inputs label{font-size:10px}.cash-inputs input{font-size:12px!important;padding:9px!important;min-height:38px!important}.schedule-checkbox{margin-top:13px;font-size:10px}.cash-metrics{display:grid;grid-template-columns:repeat(3,1fr);margin-top:19px;padding:16px 0;border-top:1px solid #edf0f3;border-bottom:1px solid #edf0f3}.cash-metrics>div{padding:0 14px;border-right:1px solid #e9edf1;display:flex;flex-direction:column;gap:3px}.cash-metrics>div:first-child{padding-left:0}.cash-metrics>div:last-child{border:0;padding-right:0}.cash-metrics span{font-size:10px;color:#8a97a7}.cash-metrics strong{font-size:20px;line-height:1.5;color:#314963;font-variant-numeric:tabular-nums}.cash-metrics strong.negative{color:var(--red)}.cash-metrics small{font-size:9px;color:#a1aab7}.chart-heading{display:flex;justify-content:space-between;gap:10px;margin-top:18px;align-items:center}.chart-heading>span{font-size:11px;font-weight:600;color:#576b84}.chart-legend{display:flex;gap:12px}.chart-legend span{font-size:8px;color:#98a3b2;display:flex;align-items:center;gap:4px}.chart-legend i{display:block;width:13px;height:0;border-top:2px solid var(--navy)}.chart-legend i.dashed{border-top:2px dashed #d89d66}.cash-chart{min-height:177px;margin-top:9px;display:flex;align-items:center;justify-content:center;border-radius:5px}.cash-chart svg{display:block;width:100%;overflow:visible}.cash-chart .empty-hint{text-align:center;background:#f8fafb;width:100%;padding:60px 0}.chart-note{font-size:9px;margin-top:4px}.schedule-heading{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:23px;margin-bottom:9px}.schedule-heading h3{font-size:12px;font-weight:600;color:#4b607b}.schedule-heading>div{display:flex;gap:12px}.schedule-heading .text-button{font-size:9px}.table-scroll{overflow-x:auto}.schedule-table{width:100%;border-collapse:collapse;text-align:left;font-size:11px}.schedule-table th{font-size:9px;font-weight:500;color:#94a0b0;border-bottom:1px solid #e9edf1;padding:7px 6px}.schedule-table th:first-child{padding-left:0}.schedule-table th:nth-child(3){text-align:right}.schedule-table td{padding:8px 6px;border-bottom:1px solid #eef1f4;font-size:10px;color:#65788f;vertical-align:middle}.schedule-table td:first-child{padding-left:0;max-width:180px}.schedule-table td:first-child strong{display:block;font-size:11px;color:#51677f;font-weight:500;overflow-wrap:anywhere}.schedule-table td:first-child small{font-size:9px;color:#9aa6b5}.schedule-table td.amount-cell{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;font-size:12px;font-weight:600}.schedule-table td.incoming{color:var(--green)}.schedule-table td.outgoing{color:#7a8493}.type-tag{background:#f4f6f8;color:#8492a5;padding:2px 6px;font-size:9px;border-radius:3px;white-space:nowrap}.type-tag.incoming{background:var(--green-bg);color:var(--green)}.type-tag.linked{background:#fff4ec;color:#b5774c}.remove-schedule{padding:0;background:none;width:22px;height:22px;border-radius:4px;font-size:17px;font-weight:300;color:#aeb6c1;line-height:1}.remove-schedule:hover{color:var(--red);background:var(--red-bg)}.add-schedule{display:grid;grid-template-columns:1.3fr 1.7fr .8fr 1.1fr .9fr auto;gap:6px;margin-top:12px}.add-schedule input,.add-schedule select{font-size:9px!important;min-height:34px!important;padding:7px 5px!important;border-radius:5px!important}.csv-help{font-size:8px;margin-top:8px;overflow-wrap:anywhere}
+.review-card{margin:23px 0 0;background:#fff;border:1px solid var(--line);border-radius:12px;padding:27px 28px;display:grid;grid-template-columns:290px 1fr;gap:35px;box-shadow:var(--shadow)}.review-intro{border-right:1px solid #edf0f3;padding-right:25px}.review-intro h2{font-size:23px;line-height:1.45;letter-spacing:.5px;margin:5px 0 10px}.review-intro>p{font-size:11px;color:#8b96a5;line-height:1.8}.review-status{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:600;color:#8a94a3;border:1px solid #e5e9ed;border-radius:20px;padding:5px 9px;margin-top:17px;background:#fafbfd}.review-status i{width:5px;height:5px;border-radius:50%;background:currentColor}.review-status.approved{color:var(--green);background:var(--green-bg);border-color:#dcebdc}.review-status.invalidated{color:var(--orange-dark);background:#fff6ee;border-color:#f2ded0}.review-fields{display:grid;grid-template-columns:1fr 2fr;gap:12px}.review-fields label{font-size:10px}.review-fields input{font-size:11px!important;min-height:38px!important}.callback-confirm{margin-top:12px;font-size:10px}.callback-confirm strong{font-weight:700}.review-actions{display:flex;align-items:center;gap:10px;margin-top:16px;flex-wrap:wrap}.review-actions .button{font-size:11px;min-height:39px}.review-actions .text-button{font-size:10px}.review-form>.field-help{margin-top:11px;font-size:9px}.review-help{font-size:10px;color:var(--yellow);margin-top:8px;line-height:1.7}.footer{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:28px 0 35px;color:#929dab}.footer-brand{font-size:12px;font-weight:700;color:#6f8094;white-space:nowrap}.footer-brand span{margin:0 7px;color:#c9ced5}.footer p{font-size:9px;line-height:1.8;text-align:center}.footer a{font-size:9px;color:#7f8d9e;text-align:right}.footer a:hover{color:var(--orange-dark)}.toast{position:fixed;left:50%;bottom:25px;transform:translateX(-50%);background:var(--navy);color:#fff;border-radius:9px;padding:12px 21px;font-size:12px;box-shadow:0 6px 20px #182c4826;z-index:99;max-width:calc(100vw - 32px);width:max-content;line-height:1.7}.source-dialog{width:min(750px,calc(100vw - 35px));max-height:85vh;border:0;border-radius:14px;padding:26px;box-shadow:0 20px 100px #182c482e;color:var(--ink)}.source-dialog::backdrop{background:#182c4870;backdrop-filter:blur(3px)}.dialog-heading{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:20px}.dialog-heading h2{font-size:18px;overflow-wrap:anywhere}.icon-button{width:30px;height:30px;font-size:25px;background:#f1f3f6;color:#8b95a4;border-radius:7px;line-height:1}.source-content{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px;line-height:1.9;background:#f7f9fb;border:1px solid #e8edf2;border-radius:8px;padding:18px;max-height:50vh;overflow:auto}.file-preview{margin-top:15px}.file-preview img{display:block;max-width:100%;max-height:50vh;margin:auto;border-radius:6px}.file-preview iframe{width:100%;height:50vh;border:1px solid #e8edf2;border-radius:6px}.file-preview a{font-size:11px;color:var(--orange-dark);text-decoration:underline}.source-dialog>.field-help{margin-top:15px}
+.baseline-editor{margin-top:10px;padding:10px 12px;border:1px solid #e9edf1;border-radius:7px}.baseline-editor summary{font-size:10px;color:#78899e;cursor:pointer}.baseline-editor .form-grid{margin:10px 0}.baseline-editor .form-grid label{font-size:10px}.baseline-editor .form-grid input{font-size:11px;min-height:36px}.baseline-editor .button{font-size:10px}.baseline-editor[open] summary{color:var(--orange-dark)}
+@media(min-width:1450px){.hero{padding-top:49px}.hero h1{font-size:41px}.workspace{grid-template-columns:430px minmax(0,1fr)}}
+@media(max-width:1100px){main{padding:0 24px}.topbar{padding:16px 24px}.workspace{grid-template-columns:minmax(0,370px) minmax(0,1fr);gap:17px}.card{padding:20px}.hero h1{font-size:34px}.hero-note{width:310px;flex-basis:310px;padding:21px}.cash-inputs{gap:7px}.cash-metrics strong{font-size:18px}.cash-metrics>div{padding:0 10px}.signal-card{padding:16px;min-height:199px}.signal-card h3{font-size:18px}.signal-icon{width:35px;height:35px;right:14px;top:57px}.signal-caption{font-size:9px}.add-schedule{grid-template-columns:1.3fr 1.8fr 1fr;gap:7px}.chart-heading{align-items:flex-start}.chart-legend{flex-direction:column;gap:2px}.review-card{grid-template-columns:260px 1fr;gap:26px;padding:25px}.review-intro h2{font-size:21px}.step-track{gap:13px}.scenario-chip{font-size:10px;gap:5px}}
+@media(max-width:900px){.workspace{grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:14px}.card{padding:18px}.card-heading h2{font-size:15px}.signal-grid{grid-template-columns:1fr;gap:10px}.signal-card{min-height:140px;padding:14px 17px}.signal-card h3{font-size:20px;max-width:83%}.signal-icon{width:45px;height:45px;top:55px}.signal-level{margin-top:12px}.signal-caption{min-height:0;margin-top:5px}.signal-disclaimer{font-size:8px}.cash-inputs{grid-template-columns:1fr 1fr}.cash-inputs label:last-child{grid-column:1/-1}.cash-metrics strong{font-size:16px}.cash-metrics span{font-size:9px}.cash-metrics small{font-size:8px}.review-card{grid-template-columns:220px 1fr;gap:20px}.review-fields{grid-template-columns:1fr}.scenario-chips{grid-template-columns:repeat(3,minmax(0,1fr))}.section-caption small{font-size:9px}.hero{gap:20px}.hero-note{width:275px;flex-basis:275px;padding:18px}.hero-note strong{font-size:12px}.hero-note p{font-size:10px}.hero h1{font-size:31px}.hero-copy>p:last-child{font-size:12px}.step-track{gap:10px;font-size:10px}.step-track i{width:3%}.review-intro{padding-right:20px}.footer p{text-align:left}.footer a{max-width:155px}}
+@media(max-width:720px){.topbar{min-height:75px;padding:13px 18px}.brand-copy strong{font-size:21px}.brand-copy strong span{font-size:16px;letter-spacing:1px;margin-left:2px}.brand-copy small{font-size:8px;letter-spacing:2px}.penguin{width:39px;height:43px;border-radius:11px;transform:scale(.95);transform-origin:left center;margin-right:-2px}.penguin:before{left:5px;top:3px}.penguin .belly{left:10px;top:16px}.penguin .eye{top:10px}.penguin .eye.left{left:15px}.penguin .eye.right{right:8px}.penguin .beak{left:18px;top:19px}.penguin .feet{left:10px;bottom:2px}.header-meta{gap:5px;flex-direction:column;align-items:flex-end;font-size:9px}.prototype-pill{font-size:8px;padding:2px 6px}.api-pill{font-size:8px;gap:4px}.api-pill i{width:4px;height:4px}main{padding:0 18px}.hero{padding:31px 0 25px;gap:18px}.hero h1{font-size:31px;letter-spacing:.5px}.hero-note{display:none}.eyebrow{font-size:8px;letter-spacing:1.5px;margin-bottom:8px}.hero-copy>p:last-child{font-size:12px;margin-top:10px}.mobile-break{display:block}.desktop-break{display:none}.scenario-section{padding:15px;border-radius:10px}.section-caption>span{flex-direction:column;gap:1px}.section-caption b{font-size:12px}.section-caption .text-button{font-size:10px}.scenario-chips{gap:7px;margin-top:12px}.scenario-chip{font-size:10px;min-height:38px;padding:7px 3px}.case-note{font-size:9px;gap:7px;align-items:flex-start}.case-note .small-tag{margin-top:1px;font-size:8px}.case-note .text-button{font-size:9px}.step-track{margin:19px 0 18px;font-size:9px;gap:5px;justify-content:space-between}.step-track b{width:15px;height:15px;font-size:8px}.step-track span{gap:4px}.step-track i{display:none}.workspace{grid-template-columns:1fr;gap:19px}.input-column,.result-column{gap:16px}.card{padding:20px;border-radius:11px}.card-heading h2{font-size:17px}.document-text{min-height:190px}.evidence-card{order:3}.result-heading{margin-bottom:11px}.signal-grid{grid-template-columns:1fr 1fr;gap:10px}.signal-card{min-height:185px;padding:15px}.signal-card h3{font-size:19px;max-width:90%}.signal-icon{width:32px;height:32px;right:10px;top:59px}.signal-level{margin-top:19px}.signal-caption{font-size:9px;min-height:36px;margin-top:8px}.signal-disclaimer{font-size:9px}.cash-inputs{grid-template-columns:1fr 1fr 1fr;gap:8px}.cash-inputs label:last-child{grid-column:auto}.cash-metrics strong{font-size:20px}.cash-metrics span{font-size:10px}.cash-metrics small{font-size:9px}.cash-metrics>div{padding:0 11px}.cash-chart{min-height:170px}.chart-legend{flex-direction:row;gap:8px}.add-schedule{grid-template-columns:1.3fr 1.8fr 1fr}.add-schedule input,.add-schedule select{font-size:11px!important;min-height:38px!important;padding:8px!important}.add-schedule .button{font-size:11px;min-height:38px}.schedule-heading .text-button{font-size:10px}.schedule-table td{font-size:11px}.schedule-table td:first-child strong{font-size:12px}.schedule-table td.amount-cell{font-size:12px}.csv-help{font-size:9px}.review-card{margin-top:20px;padding:22px;grid-template-columns:1fr;gap:20px}.review-intro{border-right:0;border-bottom:1px solid #edf0f3;padding:0 0 17px}.review-intro h2{font-size:23px}.review-intro>p br{display:none}.review-status{margin-top:11px}.review-fields{grid-template-columns:1fr}.review-fields label{font-size:11px}.review-fields input{font-size:12px!important}.review-actions{gap:9px}.review-actions .button{font-size:11px;flex:1}.review-actions .text-button{font-size:10px}.footer{padding:24px 2px 28px;align-items:flex-start;gap:14px;flex-wrap:wrap}.footer-brand{font-size:11px;flex-basis:100%}.footer p{font-size:8px;flex:1}.footer a{font-size:8px;max-width:130px}.source-dialog{padding:20px}.source-content{font-size:11px;padding:13px}}
+@media(max-width:380px){main{padding:0 13px}.topbar{padding:12px 13px}.header-meta .prototype-pill{display:none}.hero h1{font-size:29px}.card{padding:17px}.signal-card{padding:13px;min-height:196px}.signal-card h3{font-size:17px}.signal-caption{font-size:9px}.cash-inputs{grid-template-columns:1fr 1fr}.cash-inputs label:last-child{grid-column:1/-1}.cash-metrics strong{font-size:17px}.cash-metrics span{font-size:9px}.chart-legend{flex-direction:column;gap:2px}.step-track{font-size:8px}.step-track span{gap:3px}.scenario-chip{font-size:9px}.review-card{padding:19px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+@media print{.topbar{background:#fff;color:var(--navy);border-bottom:1px solid var(--line)}.hero,.scenario-section,.step-track,.document-card,.footer,.review-actions,.add-schedule{display:none}.workspace{display:block}.input-column,.result-column{display:block}.card{break-inside:avoid;margin-bottom:14px;box-shadow:none}.signal-grid{grid-template-columns:1fr 1fr}.review-card{break-inside:avoid}main{padding:0;max-width:100%}body{background:white}}
+/* Presentation-friendly text sizes: important content stays readable on a projector. */
+@media screen{
+label,.form-grid label,.cash-inputs label,.review-fields label{font-size:14px}
+input:not([type=checkbox]):not([type=file]),select,.form-grid label input,.form-grid select,.cash-inputs input,.review-fields input,.baseline-editor .form-grid input{font-size:14px!important;min-height:44px!important}
+.card-heading h2,.result-heading h2{font-size:18px}.card-kicker{font-size:10px}
+.document-text{font-size:14px!important}.hero-copy>p:last-child{font-size:14px}.hero-note p{font-size:12px}
+.checkbox-label,.notice-flags .checkbox-label,.callback-confirm,.schedule-checkbox{font-size:12px}.privacy-options{gap:10px}
+.field-help,.inline-note,.review-form>.field-help,.chart-note,.csv-help{font-size:11px}
+.finding-message{font-size:14px}.finding-evidence,.finding-action{font-size:12px;line-height:1.75}.finding-source{font-size:11px}
+.next-actions,.next-actions strong{font-size:12px}.finding{padding-bottom:14px}.findings-list{gap:13px}
+.signal-label{font-size:13px}.signal-level{font-size:11px}.signal-caption{font-size:12px;line-height:1.8}.signal-card{min-height:213px}.signal-disclaimer{font-size:11px}
+.scenario-chip,.section-caption small,.case-note,.case-note .text-button,.text-button,.small-tag{font-size:11px}.scenario-chip{font-size:12px}
+.tiny-badge{font-size:10px}.confirmation-row>span{font-size:11px}.confirmation-row .button,.button{font-size:13px}
+.baseline-box h4,.baseline-box p,.baseline-box .no-baseline,.baseline-editor summary,.baseline-editor .form-grid label{font-size:12px}.baseline-box p{line-height:1.9}
+.evidence-link span,.evidence-link small{font-size:11px}.evidence-link p,.empty-hint{font-size:12px}
+.cash-metrics span{font-size:12px}.cash-metrics small{font-size:11px}.chart-heading>span{font-size:12px}.chart-legend span{font-size:10px}
+.schedule-heading h3{font-size:14px}.schedule-heading .text-button{font-size:11px}.schedule-table th{font-size:11px}.schedule-table td{font-size:12px}.schedule-table td:first-child strong{font-size:13px}.schedule-table td:first-child small{font-size:11px}.type-tag{font-size:11px}
+.add-schedule input,.add-schedule select{font-size:12px!important;min-height:39px!important}.add-schedule .button{font-size:12px}
+.review-intro>p,.review-help{font-size:12px}.review-status{font-size:11px}.review-actions .button{font-size:13px}.review-actions .text-button{font-size:12px}
+.footer p,.footer a{font-size:10px}.source-content{font-size:14px}.step-track{font-size:12px}
+}
+@media screen and (max-width:720px){
+.signal-card{min-height:220px}.signal-level{font-size:12px}.signal-disclaimer{font-size:12px}.signal-card h3{font-size:19px}
+.scenario-chip,.section-caption small,.case-note,.case-note .text-button,.section-caption .text-button,.text-button,.small-tag,.tiny-badge,.confirmation-row>span,.field-help,.inline-note,.review-form>.field-help,.chart-note,.csv-help,.evidence-link span,.evidence-link small,.finding-source,.cash-metrics small,.chart-legend span,.schedule-heading .text-button,.schedule-table th,.schedule-table td:first-child small,.type-tag,.review-status,.footer p,.footer a{font-size:12px}
+.step-track{flex-wrap:wrap;justify-content:flex-start;gap:9px 14px}.step-track span{flex-basis:calc(50% - 7px)}.step-track b{width:19px;height:19px;font-size:11px}
+.chart-heading{flex-direction:column;gap:5px}.chart-legend{flex-direction:row;flex-wrap:wrap}.cash-metrics strong{font-size:18px}.cash-metrics span{font-size:12px}
+.cash-inputs{grid-template-columns:1fr 1fr}.cash-inputs label:last-child{grid-column:1/-1}.case-note{flex-wrap:wrap}.case-note>span:nth-child(2){flex-basis:calc(100% - 112px)}.case-note .text-button{margin-left:auto}
+.drop-zone>span:not(.upload-symbol),.drop-zone>b{font-size:12px}.drop-zone input{font-size:12px}
+}
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Hokii 錢掌櫃首頁">
+      <span class="penguin" aria-hidden="true"><i class="belly"></i><i class="eye left"></i><i class="eye right"></i><i class="beak"></i><i class="feet"></i></span>
+      <span class="brand-copy"><strong>Hokii <span>錢掌櫃</span></strong><small>付錢前，先問掌櫃</small></span>
+    </a>
+    <div class="header-meta"><span class="prototype-pill">Pengwin · MVP</span><span id="apiStatus" class="api-pill"><i></i>AI 連線確認中</span></div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy"><p class="eyebrow">PAYMENT CHECK · CASHFLOW CARE</p><h1>一筆付款，<br class="mobile-break">兩道安心的核對。</h1><p>核對收款資訊，也看看付完這筆錢，<br class="desktop-break">公司接下來 30 天的資金夠不夠。</p></div>
+      <div class="hero-note"><span class="note-line"></span><strong>掌櫃的工作，就是先問清楚。</strong><p>每個提醒都有依據，每次覆核都有紀錄。<br>最後的決定，交給您。</p><div class="hero-stamp"><span>文件核對</span><b>＋</b><span>資金試算</span></div></div>
+    </section>
+
+    <section class="scenario-section" aria-label="選擇示範情境">
+      <div class="section-caption"><span><b>親手試一筆</b><small>6 組合成資料，點選即可體驗</small></span><button id="blankCase" class="text-button" type="button">＋ 開始空白案例</button></div>
+      <div id="scenarioChips" class="scenario-chips"></div>
+      <div class="case-note"><span id="dataMode" class="small-tag">合成示範資料</span><span id="scenarioDescription">載入示範情境中…</span><button id="resetScenario" type="button" class="text-button">重設此情境</button></div>
+    </section>
+
+    <div class="step-track" aria-label="核對流程"><span class="active"><b>1</b>準備付款資料</span><i></i><span><b>2</b>確認關鍵欄位</span><i></i><span><b>3</b>查看雙燈提醒</span><i></i><span><b>4</b>記錄人工覆核</span></div>
+
+    <div class="workspace">
+      <div class="input-column">
+        <section class="card document-card" aria-labelledby="documentHeading">
+          <div class="card-heading"><div><span class="card-kicker">01 · 資料準備</span><h2 id="documentHeading">把這筆請款交給掌櫃</h2></div><span id="documentBadge" class="tiny-badge">示範文件</span></div>
+          <div class="input-tabs" role="tablist"><button id="textTab" class="active" type="button" role="tab" aria-selected="true">貼上文字</button><button id="fileTab" type="button" role="tab" aria-selected="false">上傳文件</button></div>
+          <div id="textPanel" role="tabpanel"><label class="sr-only" for="documentText">請款單或廠商通知文字</label><textarea id="documentText" class="document-text" rows="8" placeholder="貼上請款單、廠商 Email 或 LINE 訊息…"></textarea><div class="field-help">可同時貼上請款內容與廠商通知，保留日期、金額及帳號。</div></div>
+          <div id="filePanel" role="tabpanel" hidden><label id="dropZone" class="drop-zone" for="documentFile"><span class="upload-symbol" aria-hidden="true">↑</span><strong>選擇或拖曳文件</strong><span>PDF、PNG、JPG · 最多 8 MB</span><input id="documentFile" type="file" accept=".pdf,.png,.jpg,.jpeg,.webp,application/pdf,image/png,image/jpeg,image/webp"><b id="selectedFileName">尚未選擇文件</b></label><p class="field-help">附件會以原檔傳送，請先去識別化；無法替附件自動遮罩。</p></div>
+          <div class="privacy-options"><label class="checkbox-label"><input id="maskText" type="checkbox" checked><span>遮罩送出文字中的 Email 與電話</span></label><label class="checkbox-label"><input id="apiConsent" type="checkbox"><span>我已確認內容，同意將本次資料送至 OpenAI API</span></label></div>
+          <div class="analyze-row"><button id="analyzeButton" class="button button-primary" type="button"><span class="sparkle" aria-hidden="true">✦</span><span id="analyzeLabel">用 AI 整理欄位</span></button><button id="showDocument" class="button button-quiet" type="button">查看原文</button></div>
+          <p id="extractionNote" class="inline-note">示範欄位已預填，可直接修改測試。AI 僅在實際連線成功時標示。</p>
+        </section>
+
+        <section class="card payment-card" aria-labelledby="paymentHeading">
+          <div class="card-heading"><div><span class="card-kicker">02 · 人工確認</span><h2 id="paymentHeading">這筆錢，要付給誰？</h2></div><span id="confirmationBadge" class="tiny-badge">待確認</span></div>
+          <div class="form-grid">
+            <label class="full">供應商名稱<input id="supplierName" data-payment="supplierName" type="text" autocomplete="off" placeholder="例如：日日原料有限公司"></label>
+            <label>統一編號<input id="taxId" data-payment="taxId" type="text" inputmode="numeric" maxlength="8" placeholder="8 位統一編號"></label>
+            <label>請款／發票編號<input id="invoiceNo" data-payment="invoiceNo" type="text" placeholder="例如：AB12345678"></label>
+            <label class="full">本次收款帳號<input id="account" data-payment="account" type="text" inputmode="numeric" autocomplete="off" placeholder="保留開頭的 0，輸入完整帳號"><span class="field-help">帳號以文字保存，避免遺失開頭的 0。</span></label>
+            <label>付款金額<input id="amount" data-payment="amount" type="number" min="0" step="1" placeholder="輸入金額"></label>
+            <label>付款日期<input id="dueDate" data-payment="dueDate" type="date"></label>
+            <label>幣別<select id="currency" data-payment="currency"><option value="">未辨識 · 請確認</option><option value="TWD">TWD · 新臺幣</option><option value="USD">USD · 美元（暫不支援試算）</option></select></label>
+            <div class="notice-flags"><label class="checkbox-label"><input id="emailChangeRequest" data-payment="emailChangeRequest" type="checkbox"><span>通知要求更改帳號</span></label><label class="checkbox-label"><input id="emailUrgency" data-payment="emailUrgency" type="checkbox"><span>通知帶有催促／保密要求</span></label></div>
+          </div>
+          <div id="supplierBaseline" class="baseline-box"></div>
+          <details class="baseline-editor"><summary>建立／補充已確認的供應商基準</summary><p class="field-help">依既有合約、過往紀錄或可信窗口建立；原帳號會保留，請勿直接以新通知取代。</p><div class="form-grid"><label class="full">已確認的既有收款帳號<input id="baselineAccount" type="text" inputmode="numeric" placeholder="由可信來源取得的帳號"></label><label class="full">原先保存的電話／可信窗口<input id="baselinePhone" type="text" placeholder="例如：02-1234-5678 會計王小姐"></label></div><button id="saveBaseline" class="button button-small" type="button">保存已確認的基準</button></details>
+          <div class="confirmation-row"><button id="confirmFields" class="button button-navy" type="button">我已核對上述欄位</button><span id="fieldsConfirmedText">請對照原文確認帳號與金額</span></div>
+        </section>
+
+        <section class="card evidence-card" aria-labelledby="evidenceHeading"><div class="card-heading compact"><div><span class="card-kicker">SOURCE · 可追溯依據</span><h2 id="evidenceHeading">原文裡，怎麼寫的？</h2></div></div><div id="documentEvidence" class="document-evidence"></div></section>
+      </div>
+
+      <div class="result-column">
+        <section class="results-section" aria-labelledby="resultsHeading"><div class="result-heading"><h2 id="resultsHeading">掌櫃的雙燈提醒</h2><span id="evaluationTime">依目前輸入即時計算</span></div><div class="signal-grid">
+          <article id="safetySignal" class="signal-card level-gray"><div class="signal-top"><span class="signal-label">付款核對</span><span class="status-dot" aria-hidden="true"></span></div><div class="signal-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 4.5 6v5.5c0 4.7 7.5 9.5 7.5 9.5s7.5-4.8 7.5-9.5V6L12 3Z"/><path d="m8.5 11.8 2.4 2.4 4.8-4.8"/></svg></div><p id="safetyLevel" class="signal-level">資料待核對</p><h3 id="safetyTitle">載入中</h3><p id="safetyCaption" class="signal-caption"></p></article>
+          <article id="cashSignal" class="signal-card level-gray"><div class="signal-top"><span class="signal-label">資金試算</span><span class="status-dot" aria-hidden="true"></span></div><div class="signal-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 9h18M15 14h3M6 14h3"/></svg></div><p id="cashLevel" class="signal-level">資料待核對</p><h3 id="cashTitle">載入中</h3><p id="cashCaption" class="signal-caption"></p></article>
+        </div><p class="signal-disclaimer"><span aria-hidden="true">ⓘ</span> 只根據已提供的資料核對。銀行灰名單、警示帳戶與受款戶名未查詢。</p></section>
+
+        <section class="card findings-card" aria-labelledby="findingsHeading"><div class="card-heading compact"><div><span class="card-kicker">INSIGHT · 每個提醒都有原因</span><h2 id="findingsHeading">掌櫃先幫您圈出重點</h2></div><span id="findingCount" class="tiny-badge"></span></div><div id="findingsList" class="findings-list" aria-live="polite"></div><div id="nextActions" class="next-actions"></div></section>
+
+        <section class="card cash-card" aria-labelledby="cashHeading"><div class="card-heading"><div><span class="card-kicker">03 · 看見未來 30 天</span><h2 id="cashHeading">付完之後，還剩多少？</h2></div><span class="tiny-badge">TWD</span></div>
+          <div class="cash-inputs"><label>目前可用餘額<input id="cashBalance" type="number" min="0" step="1" placeholder="尚未提供"></label><label>最低保留金<input id="cashReserve" type="number" min="0" step="1"></label><label>餘額資料日期<input id="balanceDate" type="date"></label></div>
+          <label class="checkbox-label schedule-checkbox"><input id="scheduleComplete" type="checkbox"><span>我已列入薪資、租金、稅款及未來 30 天的主要收付款</span></label>
+          <div class="cash-metrics"><div><span>付款日期末餘額</span><strong id="afterPayment">—</strong><small id="paymentDateLabel">包含同日收付款</small></div><div><span>30 天最低餘額</span><strong id="minBalance">—</strong><small id="minDate">等待資料</small></div><div><span>預估資金缺口</span><strong id="cashGap">—</strong><small>低於 0 的最大金額</small></div></div>
+          <div class="chart-heading"><span>現金餘額趨勢</span><div class="chart-legend"><span><i class="solid"></i>目前排程</span><span><i class="dashed"></i>預期收款延後 7 天</span></div></div>
+          <div id="cashChart" class="cash-chart" role="img" aria-label="30 天現金餘額趨勢圖"></div><p class="field-help chart-note">情境試算依輸入資料計算；預期收款可延後，申請中的貸款不列為可用資金。本筆付款只扣一次。</p>
+
+          <div class="schedule-heading"><h3>未來收付款排程</h3><div><button id="importSchedule" class="text-button" type="button">匯入 CSV</button><input id="scheduleCsv" type="file" accept=".csv,text/csv" hidden><button id="downloadCsv" class="text-button" type="button">下載範本</button></div></div>
+          <div class="table-scroll"><table class="schedule-table"><thead><tr><th scope="col">日期 / 項目</th><th scope="col">收付</th><th scope="col">金額</th><th scope="col"><span class="sr-only">刪除</span></th></tr></thead><tbody id="scheduleRows"></tbody></table></div>
+          <form id="addScheduleForm" class="add-schedule"><label class="sr-only" for="newDate">排程日期</label><input id="newDate" type="date" required><label class="sr-only" for="newLabel">項目名稱</label><input id="newLabel" type="text" placeholder="例如：下週薪資" required maxlength="80"><label class="sr-only" for="newType">收付類型</label><select id="newType"><option value="out">支出</option><option value="in">收入</option></select><label class="sr-only" for="newAmount">排程金額</label><input id="newAmount" type="number" min="1" step="1" placeholder="金額" required><label class="sr-only" for="newCertainty">確定性</label><select id="newCertainty"><option value="confirmed">已確認</option><option value="expected">預期</option></select><button class="button button-small" type="submit" aria-label="加入收付款排程">＋ 加入</button></form>
+          <p class="field-help csv-help">CSV 欄位：date,type,amount,label,certainty；type 使用 in / out。匯入會加入排程，不取代已有資料。</p>
+        </section>
+      </div>
+    </div>
+
+    <section class="review-card" aria-labelledby="reviewHeading"><div class="review-intro"><span class="card-kicker">04 · 人工覆核留痕</span><h2 id="reviewHeading">問清楚了，再做決定。</h2><p>將核對依據與確認結果留存。<br>任何關鍵資料變更，都需要重新覆核。</p><div id="reviewStatus" class="review-status"><i></i><span>尚未完成覆核</span></div></div><div class="review-form"><div class="review-fields"><label>覆核人姓名<input id="reviewBy" type="text" placeholder="輸入覆核人姓名" autocomplete="off"></label><label>查證與覆核說明<input id="reviewNote" type="text" placeholder="例如：已依既有電話聯絡王小姐確認" autocomplete="off"></label></div><label class="checkbox-label callback-confirm"><input id="accountChangeConfirmed" type="checkbox"><span>若收款帳號變更，我已透過<strong>原先保存的電話／可信窗口</strong>確認，並記錄查證方式</span></label><div class="review-actions"><button id="approveButton" class="button button-primary" type="button">記錄覆核完成</button><button id="exportHtml" class="button button-outline" type="button">下載核對紀錄</button><button id="exportJson" class="text-button" type="button">JSON</button><button id="fundingSummary" class="text-button" type="button">資金需求摘要 ↗</button></div><p class="field-help">此工具不執行轉帳、不核准貸款。覆核紀錄儲存在本機瀏覽器，僅作 MVP 展示，非銀行授權憑證。</p><p id="reviewHelp" class="review-help" aria-live="polite"></p></div></section>
+
+    <footer class="footer"><div class="footer-brand">Hokii 錢掌櫃 <span>·</span> Pengwin</div><p>臺灣中小企業銀行校園金融科技創意挑戰賽 · 企業金融服務創新<br>競賽原型與合成示範；非臺灣企銀正式服務。</p><a href="https://www.tbb.com.tw/zh-tw/business/loans/online-apply/microenterprise-online-loans" target="_blank" rel="noopener noreferrer">臺企銀微企享 e 貸官方入口 ↗</a></footer>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <dialog id="sourceDialog" class="source-dialog"><div class="dialog-heading"><div><span class="card-kicker">原文依據</span><h2 id="sourceTitle">本次文件</h2></div><button id="closeDialog" class="icon-button" type="button" aria-label="關閉原文視窗">×</button></div><div id="sourceContent" class="source-content"></div><div id="sourceFilePreview" class="file-preview"></div><p class="field-help">請以原始文件及可信聯絡窗口確認；文字擷取可能需要人工修正。</p></dialog>
+  <script>(function (root) {
+  'use strict';
+
+  const DAY = 86400000;
+  const levels = { green: 0, yellow: 1, red: 2, gray: 3 };
+  const isNumber = value => typeof value === 'number' && Number.isFinite(value);
+  const cents = value => Math.round(value * 100);
+  const money = value => value / 100;
+  const cleanAccount = value => String(value || '').replace(/[\s-]/g, '');
+  const present = value => typeof value === 'string' && value.trim().length > 0;
+  const dateValue = value => {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(String(value || ''))) return null;
+    const parsed = Date.parse(value + 'T00:00:00Z');
+    return Number.isFinite(parsed) && new Date(parsed).toISOString().slice(0, 10) === value ? parsed : null;
+  };
+  const today = () => {
+    const now = new Date();
+    return [now.getFullYear(), String(now.getMonth() + 1).padStart(2, '0'), String(now.getDate()).padStart(2, '0')].join('-');
+  };
+  const shift = (date, offset) => new Date(dateValue(date) + offset * DAY).toISOString().slice(0, 10);
+  const ntd = value => 'NT$ ' + Number(value).toLocaleString('zh-TW', { maximumFractionDigits: 2 });
+
+  function source(state, field, fallback) {
+    const evidence = state.document && Array.isArray(state.document.evidence) ? state.document.evidence : [];
+    const found = evidence.find(item => item && typeof item === 'object' && item.field === field);
+    return found ? `${found.source || (state.document && state.document.name) || '上傳文件'}：${found.quote || fallback || field}` : fallback || '使用者輸入，請對照原文件';
+  }
+
+  function add(result, level, code, message, evidence, action) {
+    if (levels[level] > levels[result.level]) result.level = level;
+    result.reasons.push({ code, message, evidence: evidence || '', action: action || '' });
+  }
+
+  function safetyCheck(state) {
+    const payment = state.payment || {};
+    const supplier = (Array.isArray(state.suppliers) ? state.suppliers : []).find(item => item && typeof item === 'object' && item.id === payment.supplierId);
+    const history = (Array.isArray(state.history) ? state.history : []).filter(item => item && typeof item === 'object');
+    const verification = state.verification || {};
+    const verificationMatches = !present(verification.account) || cleanAccount(verification.account) === cleanAccount(payment.account);
+    const verified = verification.accountChangeConfirmed === true && present(verification.by) && present(verification.note) && verificationMatches;
+    const result = { level: 'green', title: '', reasons: [] };
+    const required = ['supplierName', 'taxId', 'account', 'currency', 'invoiceNo'];
+    const missing = required.filter(field => !present(payment[field]));
+    if (!isNumber(payment.amount) || payment.amount <= 0) missing.push('amount');
+    if (dateValue(payment.dueDate) === null) missing.push('dueDate');
+    if (missing.length) add(result, 'gray', 'MISSING_PAYMENT_FIELDS', '付款關鍵資料不完整或格式無效，尚不能完成核對。', '缺少／無效欄位：' + missing.join('、'), '補齊廠商、統編、帳號、金額、幣別、日期與單號。');
+    if (payment.fieldsConfirmed !== true) add(result, 'gray', 'FIELDS_UNCONFIRMED', '文件擷取結果尚未由使用者確認。', '目前 fieldsConfirmed 不為 true。', '對照原文件，確認帳號、金額、日期與單號。');
+    if (payment.currency && payment.currency !== 'TWD') add(result, 'gray', 'UNSUPPORTED_CURRENCY', '此原型只支援新臺幣，其他幣別不可直接試算。', '本次幣別：' + payment.currency, '改用新臺幣案例，或另外取得匯率及外幣餘額。');
+    if (!supplier) {
+      add(result, 'gray', 'UNKNOWN_SUPPLIER', '找不到已確認的供應商資料，無法核對收款帳號。', '供應商 ID：' + (payment.supplierId || '未提供'), '先建立供應商基準資料及可信聯絡電話。');
+    } else {
+      if (present(payment.taxId) && present(supplier.taxId) && payment.taxId.trim() !== supplier.taxId.trim()) add(result, 'red', 'TAX_ID_MISMATCH', '本次統編與供應商基準資料不同。', source(state, 'taxId', `文件統編 ${payment.taxId}；供應商基準 ${supplier.taxId}`), '先查證交易對象，修正前停止覆核。');
+      const accounts = Array.isArray(supplier.accounts) ? supplier.accounts.filter(present) : [];
+      if (!accounts.length) add(result, 'gray', 'NO_BASELINE_ACCOUNT', '供應商尚未有已确认的收款帳號。', '供應商資料：' + supplier.name, '經既有可信窗口確認並建立基準帳號。');
+      const changed = !!cleanAccount(payment.account) && accounts.length > 0 && !accounts.some(account => cleanAccount(account) === cleanAccount(payment.account));
+      const changeRequest = changed || payment.emailChangeRequest === true;
+      if (changeRequest && verified) {
+        add(result, 'green', 'VERIFIED_ACCOUNT_CHANGE', '帳號變更已留下人工查證紀錄；原帳號仍保留在供應商基準中。', `${verification.by}：${verification.note}；既有電話：${supplier.phone || '未提供'}`, '仍需覆核本次付款資料；此紀錄不代表受款戶名或警示帳戶已查詢。');
+      } else if (changeRequest) {
+        add(result, payment.emailUrgency === true ? 'red' : 'yellow', payment.emailUrgency === true ? 'URGENT_ACCOUNT_CHANGE' : 'ACCOUNT_CHANGE', payment.emailUrgency === true ? '催促付款與帳號變更同時出現，需要先透過既有窗口查證。' : '本次出現新帳號或改帳號通知，尚未完成查證。', source(state, 'account', `本次 ${payment.account || '未提供'}；原帳號 ${accounts.join('、') || '未建立'}`), `請用原先保存的電話 ${supplier.phone || '（尚未建立）'} 回撥，填寫確認人與查證紀錄。`);
+      } else if (accounts.length && cleanAccount(payment.account)) {
+        add(result, 'green', 'BASELINE_ACCOUNT_MATCH', '本次帳號與供應商既有帳號一致。', `供應商基準：${accounts.join('、')}；${source(state, 'account', '本次帳號 ' + payment.account)}`, '完成付款內容與金額覆核。');
+      }
+      result.openAccountChange = changeRequest && !verified;
+    }
+    if (present(payment.invoiceNo) && history.some(item => item.supplierId === payment.supplierId && String(item.invoiceNo || '').trim() === payment.invoiceNo.trim() && item.status === 'paid')) {
+      const previous = history.find(item => item.supplierId === payment.supplierId && String(item.invoiceNo || '').trim() === payment.invoiceNo.trim() && item.status === 'paid');
+      add(result, 'red', 'DUPLICATE_PAID_INVOICE', '同一供應商、同一請款單號已有已付款紀錄。', `歷史付款：${previous.date}／${payment.invoiceNo}／${ntd(previous.amount)}`, '先確認是否重複請款或輸入錯誤，再決定是否付款。');
+    }
+    const oldAmounts = history.filter(item => item.supplierId === payment.supplierId && item.status === 'paid' && isNumber(item.amount) && item.amount > 0).map(item => item.amount).sort((a, b) => a - b);
+    if (oldAmounts.length >= 3 && isNumber(payment.amount)) {
+      const middle = Math.floor(oldAmounts.length / 2);
+      const median = oldAmounts.length % 2 ? oldAmounts[middle] : (oldAmounts[middle - 1] + oldAmounts[middle]) / 2;
+      if (payment.amount > median * 3) add(result, 'yellow', 'AMOUNT_OUTLIER', '本次金額超過至少三筆已付款紀錄中位數的三倍。', `本次 ${ntd(payment.amount)}；歷史中位數 ${ntd(median)}；${oldAmounts.length} 筆紀錄`, '確認是否大型訂單、分期尾款或其他合理原因。');
+    }
+    result.title = { green: '已核對資料未見異常', yellow: '付款差異需查證', red: '關鍵異常待處理', gray: '資料不足，尚無法核對' }[result.level];
+    return result;
+  }
+
+  function cashCheck(state) {
+    const payment = state.payment || {};
+    const cash = state.cash || {};
+    const schedule = Array.isArray(state.schedule) ? state.schedule : [];
+    const result = { level: 'green', title: '', reasons: [], minBalance: null, minDate: null, gap: null, points: [], currentAfterPayment: null, paymentDayBalance: null, stressMinBalance: null, stressGap: null };
+    const start = dateValue(cash.balanceDate);
+    const now = dateValue(today());
+    const paymentDay = dateValue(payment.dueDate);
+    const validBalance = isNumber(cash.balance);
+    const validAmount = isNumber(payment.amount) && payment.amount > 0 && payment.currency === 'TWD';
+    const validReserve = isNumber(cash.reserve) && cash.reserve >= 0;
+    if (!validBalance) add(result, 'gray', 'MISSING_BALANCE', '未提供有效的可用餘額，不能可靠試算資金。', '可用餘額為空或無效。', '填入可用餘額並記錄資料日期。');
+    if (start === null || now - start > 3 * DAY || start > now) add(result, 'gray', 'STALE_BALANCE_DATE', '餘額日期缺漏、超過三天或位於未來。', '餘額日期：' + (cash.balanceDate || '未提供'), '以最近三天內的可用餘額更新試算。');
+    if (cash.scheduleComplete !== true) add(result, 'gray', 'INCOMPLETE_SCHEDULE', '未確認收付款排程完整，缺漏的薪資或其他支出不能當成零。', '收付款排程完整性尚未確認。', '補齊薪資、租金、稅款、應收與應付款，確認完整性。');
+    if (!validReserve) add(result, 'gray', 'INVALID_RESERVE', '最低保留金未填或無效。', '保留金必須是大於或等於零的數字。', '填入企業希望保留的最低資金。');
+    if (!validAmount || paymentDay === null) add(result, 'gray', 'INVALID_PAYMENT_FOR_CASH', '本次付款金額、幣別或日期無法用於試算。', '本次付款：' + (payment.amount === null ? '未提供' : String(payment.amount)) + '／' + (payment.currency || '未提供') + '／' + (payment.dueDate || '未提供'), '確認本次付款關鍵欄位。');
+    if (start !== null && paymentDay !== null && paymentDay < start) add(result, 'gray', 'PAST_DUE_PAYMENT', '本次付款日早於餘額資料日期，不能判定是否已包含在餘額中。', '付款日 ' + payment.dueDate + '；餘額日 ' + cash.balanceDate, '確認是否已付款，或更新預定付款日。');
+    if (start !== null && paymentDay !== null && paymentDay > start + 29 * DAY) add(result, 'gray', 'PAYMENT_OUTSIDE_HORIZON', '本次付款日期不在30天試算期間內。', '付款日：' + payment.dueDate, '調整觀察期間或更新餘額日期後再試算。');
+
+    const events = [];
+    schedule.forEach((item, index) => {
+      if (!item || typeof item !== 'object') {
+        add(result, 'gray', 'INVALID_SCHEDULE_ITEM', '排程包含無效資料，無法完整試算。', '排程第 ' + (index + 1) + ' 筆不是有效的收付款項目。', '修正排程資料；預覽略過此筆無效資料。');
+        return;
+      }
+      const eventDate = dateValue(item.date);
+      const validEvent = eventDate !== null && isNumber(item.amount) && item.amount > 0 && (item.type === 'in' || item.type === 'out') && (item.certainty === 'confirmed' || item.certainty === 'expected');
+      if (!validEvent) {
+        add(result, 'gray', 'INVALID_SCHEDULE_ITEM', '排程有日期、金額、方向或確定性無效的資料。', `排程第 ${index + 1} 筆：${item.label || item.id || '未命名'}`, '修正排程格式；預覽略過此筆無效資料。');
+        return;
+      }
+      if (start !== null && eventDate < start) {
+        add(result, 'gray', 'PAST_SCHEDULE_ITEM', '排程仍含餘額日以前的未確認項目，已略過避免重複計入。', `${item.date}／${item.label || item.id}／${ntd(item.amount)}`, '确认此項是否已入帳；已入帳請移除，未入帳請更新日期。');
+        return;
+      }
+      if (present(payment.id) && item.linkedPaymentId === payment.id) {
+        if (item.type !== 'out' || !validAmount || cents(item.amount) !== cents(payment.amount) || item.date !== payment.dueDate) add(result, 'gray', 'LINKED_PAYMENT_CONFLICT', '已連結本次付款的排程與付款草稿不一致。', `${item.label || item.id}：${item.date}／${ntd(item.amount)}；本次：${payment.dueDate}／${ntd(payment.amount)}`, '同步連結排程的日期、金額及支出方向；預覽只扣本次付款一次。');
+        return;
+      }
+      events.push({ date: eventDate, cents: cents(item.amount) * (item.type === 'in' ? 1 : -1), delay: item.type === 'in' && item.certainty === 'expected' ? 7 * DAY : 0 });
+    });
+    if (validAmount && paymentDay !== null && (start === null || paymentDay >= start)) events.push({ date: paymentDay, cents: -cents(payment.amount), delay: 0 });
+    if (validBalance && start !== null) {
+      let base = cents(cash.balance);
+      let stress = base;
+      result.currentAfterPayment = money(base - (validAmount && paymentDay === start ? cents(payment.amount) : 0));
+      let min = base;
+      let stressMin = base;
+      let minDate = cash.balanceDate;
+      for (let offset = 0; offset < 30; offset++) {
+        const day = start + offset * DAY;
+        events.forEach(event => {
+          if (event.date === day) base += event.cents;
+          if (event.date + event.delay === day) stress += event.cents;
+        });
+        if (base < min) { min = base; minDate = shift(cash.balanceDate, offset); }
+        stressMin = Math.min(stressMin, stress);
+        result.points.push({ date: shift(cash.balanceDate, offset), balance: money(base), stressBalance: money(stress) });
+        if (day === paymentDay) result.paymentDayBalance = money(base);
+      }
+      result.minBalance = money(min);
+      result.minDate = minDate;
+      result.gap = money(Math.max(0, -min));
+      result.stressMinBalance = money(stressMin);
+      result.stressGap = money(Math.max(0, -stressMin));
+      if (min < 0) add(result, 'red', 'CASH_SHORTFALL', `已列入的收付款顯示 ${minDate} 可能缺少 ${ntd(-money(min))}。`, '以餘額日開始30天的每日期末餘額計算；本次付款只計入一次。', '確認支出與入帳日期，安排付款順序或另行評估周轉來源。');
+      else if (validReserve && min < cents(cash.reserve)) add(result, 'yellow', 'BELOW_RESERVE', '試算最低餘額低於設定的保留金。', `最低 ${ntd(money(min))}；保留金 ${ntd(cash.reserve)}`, '檢視付款順序與企業最低資金需求。');
+      if (stressMin < 0) add(result, 'yellow', 'RECEIVABLE_DELAY_SHORTFALL', '若預期應收款延後七天入帳，情境試算將出現資金缺口。', `延後情境最低餘額 ${ntd(money(stressMin))}；此為情境，不是已確定缺口。`, '向客戶確認入帳時點並預留緩衝。');
+      else if (validReserve && stressMin < cents(cash.reserve) && stressMin < min) add(result, 'yellow', 'RECEIVABLE_DELAY_RESERVE', '應收款延後七天時，最低餘額將低於保留金。', `延後情境最低 ${ntd(money(stressMin))}；保留金 ${ntd(cash.reserve)}`, '確認預期應收款及付款時程。');
+      if (!result.reasons.length) add(result, 'green', 'CASH_SUFFICIENT', '依已確認的收付款排程，30天最低餘額高於或等於保留金。', `最低 ${ntd(money(min))}；保留金 ${ntd(cash.reserve)}；每日期末加總。`, '付款前再次確認餘額與排程是否有變動。');
+    }
+    result.title = { green: '已知排程資金足夠', yellow: '資金緩衝需留意', red: '試算出現資金缺口', gray: '資料不足，試算僅供預覽' }[result.level];
+    return result;
+  }
+
+  function evaluate(state) {
+    state = state && typeof state === 'object' ? state : {};
+    const safety = safetyCheck(state);
+    const cash = cashCheck(state);
+    const nextActions = [...new Set([...safety.reasons, ...cash.reasons].filter(reason => reason.action && !['BASELINE_ACCOUNT_MATCH', 'CASH_SUFFICIENT'].includes(reason.code)).map(reason => reason.action))];
+    const readyForReview = !['red', 'gray'].includes(safety.level) && !['red', 'gray'].includes(cash.level) && state.payment && state.payment.fieldsConfirmed === true && !safety.openAccountChange;
+    if (!nextActions.length) nextActions.push('對照原文件完成本次付款覆核，記錄確認人與版本。');
+    return { safety, cash, nextActions, readyForReview: !!readyForReview };
+  }
+
+  function canonical(value) {
+    if (Array.isArray(value)) return value.map(canonical);
+    if (value && typeof value === 'object') return Object.keys(value).sort().reduce((out, key) => { if (value[key] !== undefined) out[key] = canonical(value[key]); return out; }, {});
+    return value;
+  }
+  function snapshot(state) {
+    const selected = {};
+    ['payment', 'suppliers', 'history', 'cash', 'schedule', 'verification', 'document', 'version'].forEach(key => { if (state && state[key] !== undefined) selected[key] = state[key]; });
+    return JSON.stringify(canonical(selected));
+  }
+
+  const scenarios = [
+    { id: 'normal', label: '正常付款', description: '既有供應商、帳號一致、資金完整。' },
+    { id: 'change-legit', label: '合法帳號變更', description: '需要既有電話查證，完成紀錄後再覆核。' },
+    { id: 'suspicious', label: '催促改帳號', description: '陌生帳號加上急件通知，需要先查證。' },
+    { id: 'duplicate', label: '重複請款', description: '相同供應商與單號已付款。' },
+    { id: 'cash-gap', label: '薪資缺口', description: '付貨款後，下週薪資可能短缺21萬元。' },
+    { id: 'missing', label: '資料不足', description: '缺供應商基準、餘額與完整薪資排程。' }
+  ];
+
+  function getScenario(id) {
+    if (!scenarios.some(scenario => scenario.id === id)) throw new Error('未知情境：' + id);
+    const start = today();
+    const suffix = start.replace(/-/g, '').slice(0, 6);
+    const state = {
+      version: 1,
+      payment: { id: 'PAY-DEMO-001', supplierId: 'SUP-001', supplierName: '鵬灣材料有限公司（合成）', taxId: '99999990', account: '01212345678901', amount: 120000, currency: 'TWD', dueDate: start, invoiceNo: 'INV-' + suffix + '-101', emailUrgency: false, emailChangeRequest: false, fieldsConfirmed: true },
+      suppliers: [{ id: 'SUP-001', name: '鵬灣材料有限公司（合成）', taxId: '99999990', accounts: ['01212345678901'], phone: '02-0000-0000（示範，請勿撥打）' }],
+      history: [90000, 100000, 110000].map((amount, index) => ({ supplierId: 'SUP-001', account: '01212345678901', amount, invoiceNo: 'OLD-' + (index + 1), date: shift(start, -7 * (index + 1)), status: 'paid' })),
+      cash: { balance: 790000, balanceDate: start, reserve: 100000, scheduleComplete: true },
+      schedule: [
+        { id: 'SCH-1', date: shift(start, 5), type: 'in', amount: 180000, label: '客戶貨款（合成）', certainty: 'expected' },
+        { id: 'SCH-2', date: shift(start, 7), type: 'out', amount: 200000, label: '本月薪資（合成）', certainty: 'confirmed' },
+        { id: 'SCH-3', date: shift(start, 10), type: 'out', amount: 70000, label: '租金與費用（合成）', certainty: 'confirmed' }
+      ],
+      verification: { accountChangeConfirmed: false, by: '', note: '' },
+      document: { name: '合成請款單.txt', text: '', evidence: [] }
+    };
+    if (id === 'change-legit' || id === 'suspicious') { state.payment.account = '82298765432109'; state.payment.emailChangeRequest = true; }
+    if (id === 'suspicious') { state.payment.emailUrgency = true; state.cash.balance = 1000000; }
+    if (id === 'duplicate') state.history.push({ supplierId: 'SUP-001', account: state.payment.account, amount: state.payment.amount, invoiceNo: state.payment.invoiceNo, date: shift(start, -4), status: 'paid' });
+    if (id === 'cash-gap') { state.payment.amount = 480000; state.schedule = [{ id: 'PAYROLL', date: shift(start, 7), type: 'out', amount: 520000, label: '下週薪資（合成）', certainty: 'confirmed' }]; }
+    if (id === 'missing') { state.suppliers = []; state.cash.balance = null; state.cash.scheduleComplete = false; state.schedule = []; state.payment.fieldsConfirmed = false; }
+    const p = state.payment;
+    const notice = p.emailUrgency ? '\n廠商來信：今天務必付款，請立刻改匯新帳號，不要再打原公司電話。' : p.emailChangeRequest ? '\n廠商來信：請改匯本次列示的新帳號，可透過原先窗口確認。' : '\n廠商來信：請依原合約及原收款帳號付款。';
+    state.document.text = `【合成資料，非真實企業與帳戶】\n請款單號：${p.invoiceNo}\n廠商：${p.supplierName}\n統編：${p.taxId}\n收款帳號：${p.account}\n金額：${p.amount}\n幣別：${p.currency}\n付款日：${p.dueDate}${notice}`;
+    state.document.evidence = ['supplierName', 'taxId', 'account', 'amount', 'currency', 'dueDate', 'invoiceNo'].map(field => ({ field, quote: String(p[field]), source: '合成請款單，第1頁' }));
+    return state;
+  }
+
+  root.HokiiEngine = { evaluate, snapshot, getScenario, scenarios };
+})(globalThis);
+</script>
+  <script>(function () {
+  'use strict';
+
+  const $ = function (id) { return document.getElementById(id); };
+  const Engine = window.HokiiEngine;
+  const moneyFormat = new Intl.NumberFormat('zh-TW', { maximumFractionDigits: 2 });
+  const levelLabel = { green: '已核對', yellow: '需要查證', red: '待處理', gray: '資料不足' };
+  const fieldNames = { supplierName: '供應商', taxId: '統一編號', account: '收款帳號', amount: '付款金額', currency: '幣別', dueDate: '付款日期', invoiceNo: '請款單號' };
+  let state;
+  let evaluation;
+  let activeScenario = 'normal';
+  let scenarioModified = false;
+  let approval = null;
+  let invalidatedAt = null;
+  let selectedFile = null;
+  let fileObjectUrl = null;
+  let activeTab = 'text';
+  let api = { configured: false, model: '', checked: false };
+  let busy = false;
+  let toastTimeout;
+  let extractionAbort = null;
+  let extractionSerial = 0;
+
+  function node(tag, className, content) {
+    const element = document.createElement(tag);
+    if (className) element.className = className;
+    if (content !== undefined && content !== null) element.textContent = String(content);
+    return element;
+  }
+  function replace(id, content) { $(id).replaceChildren(content); }
+  function numberOrNull(value) {
+    if (value === '' || value === null || value === undefined) return null;
+    const parsed = Number(String(value).replace(/,/g, ''));
+    return Number.isFinite(parsed) ? parsed : null;
+  }
+  function money(value) { return typeof value === 'number' && Number.isFinite(value) ? moneyFormat.format(value) : '—'; }
+  function cleanAccount(value) { return String(value || '').replace(/[\s-]/g, ''); }
+  function today() {
+    const date = new Date();
+    return [date.getFullYear(), String(date.getMonth() + 1).padStart(2, '0'), String(date.getDate()).padStart(2, '0')].join('-');
+  }
+  function validDate(value) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(value || '')) return false;
+    const date = new Date(value + 'T00:00:00Z');
+    return Number.isFinite(date.getTime()) && date.toISOString().slice(0, 10) === value;
+  }
+  function shortDate(value) { return validDate(value) ? value.slice(5).replace('-', '/') : '未提供'; }
+  function uniqueId(prefix) { return prefix + '-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 7); }
+  function toast(message) {
+    $('toast').textContent = message;
+    $('toast').hidden = false;
+    clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(function () { $('toast').hidden = true; }, 4800);
+  }
+  function setExtractionNote(message, style) {
+    $('extractionNote').textContent = message;
+    $('extractionNote').className = 'inline-note' + (style ? ' ' + style : '');
+  }
+  function clearApproval() {
+    if (approval) {
+      approval = null;
+      invalidatedAt = new Date().toISOString();
+      try { localStorage.removeItem('hokii-mvp-last-review'); } catch (_) {}
+      toast('付款資料已變更，先前的覆核已失效，請重新確認。');
+    }
+  }
+  function mutate(options) {
+    options = options || {};
+    if (options.payment) state.payment.fieldsConfirmed = false;
+    if (options.identity) {
+      state.verification.accountChangeConfirmed = false;
+      state.verification.account = '';
+      state.verification.note = '';
+      $('reviewNote').value = '';
+      $('accountChangeConfirmed').checked = false;
+    }
+    clearApproval();
+    state.version = (Number(state.version) || 0) + 1;
+    scenarioModified = !!activeScenario;
+    render();
+  }
+  function normalizeState(value) {
+    const result = value && value.state ? value.state : value;
+    result.payment = result.payment || {};
+    result.payment.id = result.payment.id || uniqueId('PAY');
+    result.suppliers = Array.isArray(result.suppliers) ? result.suppliers : [];
+    result.history = Array.isArray(result.history) ? result.history : [];
+    result.cash = result.cash || { balance: null, balanceDate: today(), reserve: 100000, scheduleComplete: false };
+    result.schedule = Array.isArray(result.schedule) ? result.schedule : [];
+    result.verification = result.verification || { accountChangeConfirmed: false, by: '', note: '' };
+    result.document = result.document || { name: '', text: '', evidence: [] };
+    result.document.evidence = Array.isArray(result.document.evidence) ? result.document.evidence : [];
+    return result;
+  }
+  function cancelExtraction() {
+    extractionSerial++;
+    if (extractionAbort) extractionAbort.abort();
+    extractionAbort = null;
+    busy = false;
+    $('analyzeButton').disabled = false;
+    $('analyzeLabel').textContent = '用 AI 整理欄位';
+  }
+  function clearFile() {
+    selectedFile = null;
+    if (fileObjectUrl) URL.revokeObjectURL(fileObjectUrl);
+    fileObjectUrl = null;
+    $('documentFile').value = '';
+    $('selectedFileName').textContent = '尚未選擇文件';
+    $('sourceFilePreview').replaceChildren();
+  }
+  function loadScenario(id, announce) {
+    cancelExtraction();
+    clearFile();
+    activeScenario = id;
+    scenarioModified = false;
+    state = normalizeState(Engine.getScenario(id));
+    approval = null;
+    invalidatedAt = null;
+    $('apiConsent').checked = false;
+    $('baselineAccount').value = '';
+    $('baselinePhone').value = '';
+    setExtractionNote('內建合成示範已預填欄位，並非 AI 辨識結果。修改帳號或金額，就能看看提醒如何改變。');
+    switchTab('text');
+    fillInputs();
+    render();
+    if (announce) toast('已載入「' + Engine.scenarios.find(function (item) { return item.id === id; }).label + '」合成情境。');
+  }
+  function loadBlank(announce, keepFile) {
+    cancelExtraction();
+    if (!keepFile) clearFile();
+    activeScenario = null;
+    scenarioModified = false;
+    state = normalizeState({
+      version: 1,
+      payment: { id: uniqueId('PAY'), supplierId: '', supplierName: '', taxId: '', account: '', amount: null, currency: 'TWD', dueDate: today(), invoiceNo: '', emailUrgency: false, emailChangeRequest: false, fieldsConfirmed: false },
+      suppliers: [], history: [],
+      cash: { balance: null, balanceDate: today(), reserve: 100000, scheduleComplete: false },
+      schedule: [], verification: { accountChangeConfirmed: false, account: '', by: '', note: '' },
+      document: { name: '人工輸入', text: '', evidence: [], provider: 'manual' }
+    });
+    approval = null;
+    invalidatedAt = null;
+    $('apiConsent').checked = false;
+    $('baselineAccount').value = '';
+    $('baselinePhone').value = '';
+    setExtractionNote(api.configured ? '可貼上文字或上傳文件，再使用 AI 整理；也能直接人工填入下方欄位。' : 'AI 尚未啟用，請人工填入下方欄位。空白案例的供應商與金流資料皆需自行建立。');
+    fillInputs();
+    render();
+    if (announce) toast('已建立空白案例。請補齊付款、供應商基準及資金資料。');
+  }
+  function fillInputs() {
+    document.querySelectorAll('[data-payment]').forEach(function (input) {
+      const value = state.payment[input.dataset.payment];
+      if (input.type === 'checkbox') input.checked = value === true;
+      else input.value = value === null || value === undefined ? '' : String(value);
+    });
+    $('documentText').value = state.document.text || '';
+    $('cashBalance').value = state.cash.balance === null || state.cash.balance === undefined ? '' : state.cash.balance;
+    $('cashReserve').value = state.cash.reserve === null || state.cash.reserve === undefined ? '' : state.cash.reserve;
+    $('balanceDate').value = state.cash.balanceDate || '';
+    $('scheduleComplete').checked = state.cash.scheduleComplete === true;
+    $('reviewBy').value = state.verification.by || '';
+    $('reviewNote').value = state.verification.note || '';
+    $('accountChangeConfirmed').checked = state.verification.accountChangeConfirmed === true;
+    $('newDate').value = state.cash.balanceDate || today();
+  }
+  function switchTab(tab) {
+    activeTab = tab;
+    $('textTab').classList.toggle('active', tab === 'text');
+    $('fileTab').classList.toggle('active', tab === 'file');
+    $('textTab').setAttribute('aria-selected', String(tab === 'text'));
+    $('fileTab').setAttribute('aria-selected', String(tab === 'file'));
+    $('textPanel').hidden = tab !== 'text';
+    $('filePanel').hidden = tab !== 'file';
+  }
+  function renderChips() {
+    document.querySelectorAll('.scenario-chip').forEach(function (button) {
+      button.classList.toggle('active', button.dataset.scenario === activeScenario);
+      button.setAttribute('aria-pressed', String(button.dataset.scenario === activeScenario));
+    });
+    const scenario = Engine.scenarios.find(function (item) { return item.id === activeScenario; });
+    $('dataMode').textContent = scenario ? (scenarioModified ? '合成案例 · 已修改' : '合成示範資料') : '手動／上傳案例';
+    $('scenarioDescription').textContent = scenario ? scenario.description : '資料由您提供；無法查詢銀行警示帳戶與受款戶名。';
+    $('resetScenario').textContent = scenario ? '重設此情境' : '清空此案例';
+  }
+  function renderBaseline() {
+    const supplier = state.suppliers.find(function (item) { return item.id === state.payment.supplierId; });
+    const box = node('div');
+    box.append(node('h4', '', '既有供應商基準 · 人工建立'));
+    if (supplier) {
+      box.append(node('p', '', supplier.name + ' · 統編 ' + (supplier.taxId || '未提供')));
+      box.append(node('p', '', '原帳號：' + (supplier.accounts || []).join('、')));
+      box.append(node('p', '', '可信窗口：' + (supplier.phone || '未提供')));
+      const history = state.history.filter(function (item) { return item.supplierId === supplier.id && item.status === 'paid'; });
+      box.append(node('p', '', '已付款紀錄：' + history.length + ' 筆 · 此基準不代表銀行戶名查驗'));
+    } else {
+      box.append(node('p', 'no-baseline', '尚無已確認的基準。請從既有合約或可信窗口建立，才能比對本次帳號。'));
+    }
+    replace('supplierBaseline', box);
+  }
+  function renderDocumentEvidence() {
+    const container = $('documentEvidence');
+    container.replaceChildren();
+    $('documentBadge').textContent = state.document.provider === 'openai' ? 'OpenAI 辨識' : (activeScenario ? '合成文件' : '人工／上傳');
+    $('documentBadge').className = 'tiny-badge' + (state.document.provider === 'openai' ? ' real-ai' : '');
+    if (!state.document.evidence.length) {
+      container.append(node('p', 'empty-hint', '尚無擷取依據。可查看原文，人工核對欄位；資料不足時掌櫃會顯示灰燈。'));
+      return;
+    }
+    state.document.evidence.forEach(function (evidence) {
+      if (!evidence || typeof evidence !== 'object') return;
+      const button = node('button', 'evidence-link');
+      button.type = 'button';
+      button.append(node('span', '', (fieldNames[evidence.field] || '文件內容') + ' ↗'));
+      button.append(node('p', '', evidence.quote || '原文未提供'));
+      button.append(node('small', '', evidence.source || state.document.name || '本次文件'));
+      button.addEventListener('click', function () { openSource(evidence.source || '原文依據', String(evidence.quote || '') + '\n\n──── 本次文件原文 ────\n' + (state.document.text || '附件請見下方預覽。')); });
+      container.append(button);
+    });
+  }
+  function humanEvidence(value) {
+    let text = String(value || '');
+    Object.keys(fieldNames).forEach(function (key) { text = text.replace(new RegExp(key, 'g'), fieldNames[key]); });
+    return text.replace('目前 fieldsConfirmed 不為 true。', '尚未由使用者確認欄位。').replace('供應商 ID：', '供應商資料編號：');
+  }
+  function renderSignal(kind, result) {
+    $(kind + 'Signal').className = 'signal-card level-' + result.level;
+    $(kind + 'Level').textContent = levelLabel[result.level] + (kind === 'cash' && result.level !== 'gray' ? ' · 30 天試算' : '');
+    $(kind + 'Title').textContent = result.title;
+    const captions = kind === 'safety' ? {
+      green: '在已完成的核對中未見異常，仍需人工覆核。',
+      yellow: '先查清楚差異，留下可信窗口的確認紀錄。',
+      red: '請先處理關鍵異常，再決定是否付款。',
+      gray: '缺漏資料不能當作已通過，請先補齊。'
+    } : {
+      green: '依目前排程，餘額高於設定的保留金。',
+      yellow: '資金接近保留金，或預期收款延後就有壓力。',
+      red: '排程出現負餘額，請檢視付款與入帳日期。',
+      gray: '餘額或排程尚不完整，數字僅供預覽。'
+    };
+    $(kind + 'Caption').textContent = captions[result.level];
+  }
+  function renderFindings() {
+    const all = evaluation.safety.reasons.map(function (reason) { return { reason: reason, axis: '付款', level: evaluation.safety.level }; }).concat(evaluation.cash.reasons.map(function (reason) { return { reason: reason, axis: '資金', level: evaluation.cash.level }; }));
+    const priority = { red: 0, gray: 1, yellow: 2, green: 3 };
+    all.sort(function (a, b) { return priority[a.level] - priority[b.level]; });
+    $('findingCount').textContent = all.length + ' 項核對依據';
+    const container = $('findingsList');
+    container.replaceChildren();
+    all.forEach(function (item) {
+      const reason = item.reason;
+      const article = node('article', 'finding level-' + item.level);
+      article.append(node('span', 'finding-symbol', item.level === 'green' ? '✓' : (item.level === 'gray' ? '?' : '!')));
+      const body = node('div');
+      body.append(node('p', 'finding-message', reason.message));
+      if (reason.evidence) body.append(node('p', 'finding-evidence', humanEvidence(reason.evidence)));
+      if (reason.action) body.append(node('p', 'finding-action', '下一步：' + reason.action));
+      const button = node('button', 'finding-source', item.axis + '依據 ↗');
+      button.type = 'button';
+      button.addEventListener('click', function () {
+        openSource(item.axis + '核對依據', reason.message + '\n\n依據：' + humanEvidence(reason.evidence) + '\n\n建議：' + reason.action + '\n\n──── 本次文件原文 ────\n' + (state.document.text || '尚未提供文字原文；請核對附件或人工輸入來源。'));
+      });
+      body.append(button);
+      article.append(body);
+      container.append(article);
+    });
+    const next = node('div');
+    next.className = 'next-actions-content';
+    next.append(node('strong', '', '掌櫃建議'));
+    next.append(node('p', '', evaluation.nextActions.length ? evaluation.nextActions.join(' ') : '付款前再對照一次原文，並記錄人工覆核結果。'));
+    $('nextActions').replaceChildren(next);
+    $('nextActions').style.display = 'block';
+    next.style.display = 'flex';
+    next.style.gap = '8px';
+  }
+  function renderCash() {
+    const cash = evaluation.cash;
+    const paymentDayBalance = cash.paymentDayBalance !== undefined ? cash.paymentDayBalance : ((cash.points || []).find(function (point) { return point.date === state.payment.dueDate; }) || {}).balance;
+    $('afterPayment').textContent = money(paymentDayBalance);
+    $('afterPayment').classList.toggle('negative', typeof paymentDayBalance === 'number' && paymentDayBalance < 0);
+    $('paymentDateLabel').textContent = shortDate(state.payment.dueDate) + ' · 含同日收付款';
+    $('minBalance').textContent = money(cash.minBalance);
+    $('minBalance').classList.toggle('negative', typeof cash.minBalance === 'number' && cash.minBalance < 0);
+    $('minDate').textContent = cash.minDate ? shortDate(cash.minDate) + (cash.level === 'gray' ? ' · 資料不全，僅預覽' : ' · 當日期末') : '等待資料';
+    $('cashGap').textContent = money(cash.gap);
+    $('cashGap').classList.toggle('negative', typeof cash.gap === 'number' && cash.gap > 0);
+    renderChart(cash);
+    renderSchedule();
+  }
+  function svgNode(tag, attrs, content) {
+    const element = document.createElementNS('http://www.w3.org/2000/svg', tag);
+    Object.keys(attrs || {}).forEach(function (key) { element.setAttribute(key, String(attrs[key])); });
+    if (content !== undefined) element.textContent = String(content);
+    return element;
+  }
+  function compactMoney(value) {
+    if (Math.abs(value) >= 10000) return moneyFormat.format(value / 10000) + '萬';
+    return moneyFormat.format(value);
+  }
+  function renderChart(cash) {
+    const container = $('cashChart');
+    container.replaceChildren();
+    const points = (cash.points || []).filter(function (point) { return Number.isFinite(point.balance) && Number.isFinite(point.stressBalance); });
+    if (!points.length) {
+      container.append(node('p', 'empty-hint', '填入餘額與資料日期，掌櫃就能開始試算。'));
+      container.setAttribute('aria-label', '尚未提供有效餘額，無法繪製現金趨勢');
+      return;
+    }
+    const width = 600, height = 181, left = 50, right = 8, top = 17, bottom = 25;
+    const plotWidth = width - left - right, plotHeight = height - top - bottom;
+    const values = points.reduce(function (all, point) { return all.concat([point.balance, point.stressBalance]); }, [0, Number(state.cash.reserve) || 0]);
+    const low = Math.min.apply(null, values), high = Math.max.apply(null, values);
+    const span = Math.max(10000, high - low);
+    const min = low - span * 0.1, max = high + span * 0.15;
+    const x = function (i) { return left + i / Math.max(1, points.length - 1) * plotWidth; };
+    const y = function (value) { return top + (max - value) / (max - min) * plotHeight; };
+    const svg = svgNode('svg', { viewBox: '0 0 ' + width + ' ' + height, role: 'presentation', 'aria-hidden': 'true' });
+    for (let i = 0; i < 4; i++) {
+      const value = max - (max - min) * i / 3;
+      const lineY = y(value);
+      svg.append(svgNode('line', { x1: left, y1: lineY, x2: width - right, y2: lineY, stroke: '#edf0f4', 'stroke-width': 1 }));
+      svg.append(svgNode('text', { x: left - 8, y: lineY + 3, fill: '#99a5b4', 'text-anchor': 'end', 'font-size': 9 }, compactMoney(Math.round(value))));
+    }
+    if (low < 0) {
+      svg.append(svgNode('line', { x1: left, y1: y(0), x2: width - right, y2: y(0), stroke: '#df9188', 'stroke-width': 1, 'stroke-dasharray': '3 4' }));
+      svg.append(svgNode('text', { x: left + 5, y: y(0) - 4, fill: '#bf7068', 'font-size': 8 }, '0 元'));
+    }
+    if (Number.isFinite(state.cash.reserve) && state.cash.reserve > 0) svg.append(svgNode('line', { x1: left, y1: y(state.cash.reserve), x2: width - right, y2: y(state.cash.reserve), stroke: '#b6c8b9', 'stroke-width': 1, 'stroke-dasharray': '2 4' }));
+    const linePath = points.map(function (point, i) { return (i ? 'L' : 'M') + x(i).toFixed(2) + ' ' + y(point.balance).toFixed(2); }).join(' ');
+    const areaPath = linePath + ' L' + x(points.length - 1).toFixed(2) + ' ' + (height - bottom) + ' L' + left + ' ' + (height - bottom) + ' Z';
+    svg.append(svgNode('path', { d: areaPath, fill: cash.level === 'red' ? '#fbede8' : '#eaf0f5', opacity: 0.8 }));
+    const stressPath = points.map(function (point, i) { return (i ? 'L' : 'M') + x(i).toFixed(2) + ' ' + y(point.stressBalance).toFixed(2); }).join(' ');
+    svg.append(svgNode('path', { d: stressPath, fill: 'none', stroke: '#d4a371', 'stroke-width': 1.7, 'stroke-dasharray': '4 4', 'stroke-linejoin': 'round' }));
+    svg.append(svgNode('path', { d: linePath, fill: 'none', stroke: cash.level === 'red' ? '#b96550' : '#355879', 'stroke-width': 2.2, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }));
+    const minIndex = points.findIndex(function (point) { return point.balance === cash.minBalance; });
+    if (minIndex >= 0) svg.append(svgNode('circle', { cx: x(minIndex), cy: y(points[minIndex].balance), r: 3.5, fill: cash.minBalance < 0 ? '#b54641' : '#355879', stroke: '#fff', 'stroke-width': 1.5 }));
+    [0, Math.floor((points.length - 1) / 2), points.length - 1].forEach(function (i) { svg.append(svgNode('text', { x: x(i), y: height - 4, fill: '#99a5b4', 'text-anchor': i === 0 ? 'start' : (i === points.length - 1 ? 'end' : 'middle'), 'font-size': 9 }, shortDate(points[i].date))); });
+    container.append(svg);
+    container.setAttribute('aria-label', '30 天現金流，最低餘額 ' + money(cash.minBalance) + ' 元，發生於 ' + (cash.minDate || '未提供') + '。預期收款延後 7 天的最低餘額為 ' + money(cash.stressMinBalance) + ' 元。');
+  }
+  function scheduleRow(item, isPayment) {
+    const row = node('tr');
+    const description = node('td');
+    description.append(node('strong', '', item.label || '未命名'));
+    description.append(node('small', '', shortDate(item.date) + ' · ' + (isPayment ? '已自動計入一次' : (item.certainty === 'expected' ? '預期' : '已確認'))));
+    row.append(description);
+    const typeCell = node('td');
+    typeCell.append(node('span', 'type-tag ' + (isPayment ? 'linked' : (item.type === 'in' ? 'incoming' : '')), isPayment ? '本筆' : (item.type === 'in' ? '收入' : '支出')));
+    row.append(typeCell);
+    row.append(node('td', 'amount-cell ' + (item.type === 'in' ? 'incoming' : 'outgoing'), (item.type === 'in' ? '+' : '−') + money(item.amount)));
+    const action = node('td');
+    if (!isPayment) {
+      const button = node('button', 'remove-schedule', '×');
+      button.type = 'button';
+      button.title = '移除「' + (item.label || '排程') + '」';
+      button.setAttribute('aria-label', button.title);
+      button.addEventListener('click', function () {
+        state.schedule = state.schedule.filter(function (entry) { return entry.id !== item.id; });
+        state.cash.scheduleComplete = false;
+        $('scheduleComplete').checked = false;
+        mutate();
+        toast('已移除此排程。請重新確認未來收付款是否完整。');
+      });
+      action.append(button);
+    } else action.append(node('span', '', '—'));
+    row.append(action);
+    return row;
+  }
+  function renderSchedule() {
+    const body = $('scheduleRows');
+    body.replaceChildren();
+    if (state.payment.amount !== null && state.payment.amount > 0) body.append(scheduleRow({ label: '本次付款 · ' + (state.payment.supplierName || '供應商待填'), date: state.payment.dueDate, type: 'out', amount: state.payment.amount, certainty: 'confirmed' }, true));
+    state.schedule.slice().sort(function (a, b) { return String(a.date).localeCompare(String(b.date)); }).forEach(function (item) {
+      if (item.linkedPaymentId === state.payment.id && item.type === 'out' && item.amount === state.payment.amount && item.date === state.payment.dueDate) return;
+      body.append(scheduleRow(item, false));
+    });
+    if (!body.children.length) {
+      const row = node('tr');
+      const cell = node('td', 'empty-hint', '尚無收付款排程；請補齊薪資、租金、稅款等。');
+      cell.colSpan = 4;
+      row.append(cell);
+      body.append(row);
+    }
+  }
+  function renderReview() {
+    const status = $('reviewStatus');
+    status.className = 'review-status';
+    if (approval) {
+      status.classList.add('approved');
+      status.querySelector('span').textContent = '已覆核 · ' + approval.by + ' · v' + state.version;
+      $('reviewHelp').textContent = '本次覆核已記錄，尚未執行匯款。可下載核對紀錄；修改關鍵資料後會失效。';
+    } else if (invalidatedAt) {
+      status.classList.add('invalidated');
+      status.querySelector('span').textContent = '資料已變更 · 需要重新覆核';
+      $('reviewHelp').textContent = '先前的覆核已失效。請核對修改後資料，再重新記錄。';
+    } else {
+      status.querySelector('span').textContent = '尚未完成覆核 · v' + state.version;
+      $('reviewHelp').textContent = evaluation.readyForReview ? '目前已具備覆核資料，請填入覆核人姓名。' : '先處理灰燈／紅燈及尚未查證的帳號變更，再記錄覆核完成。仍可下載待處理紀錄。';
+    }
+    $('approveButton').disabled = !!approval || !evaluation.readyForReview || !String(state.verification.by || '').trim();
+    $('approveButton').textContent = approval ? '✓ 本次已完成覆核' : '記錄覆核完成';
+  }
+  function render() {
+    evaluation = Engine.evaluate(state);
+    renderChips();
+    renderBaseline();
+    renderDocumentEvidence();
+    renderSignal('safety', evaluation.safety);
+    renderSignal('cash', evaluation.cash);
+    renderFindings();
+    renderCash();
+    renderReview();
+    $('confirmationBadge').textContent = state.payment.fieldsConfirmed ? '欄位已確認' : '待人工確認';
+    $('confirmationBadge').className = 'tiny-badge' + (state.payment.fieldsConfirmed ? ' confirmed' : '');
+    $('confirmFields').textContent = state.payment.fieldsConfirmed ? '✓ 上述欄位已核對' : '我已核對上述欄位';
+    $('fieldsConfirmedText').textContent = state.payment.fieldsConfirmed ? '任一關鍵欄位修改後，需重新確認' : '請對照原文確認帳號、金額與付款日';
+    $('evaluationTime').textContent = '依目前輸入 · 版本 ' + state.version;
+  }
+  function openSource(title, text) {
+    $('sourceTitle').textContent = title || state.document.name || '本次文件';
+    $('sourceContent').textContent = text || state.document.text || '尚未提供文字原文。';
+    const preview = $('sourceFilePreview');
+    preview.replaceChildren();
+    if (selectedFile) {
+      if (!fileObjectUrl) fileObjectUrl = URL.createObjectURL(selectedFile);
+      if (selectedFile.type === 'application/pdf' || /\.pdf$/i.test(selectedFile.name)) {
+        const iframe = node('iframe');
+        iframe.src = fileObjectUrl;
+        iframe.title = '原始 PDF：' + selectedFile.name;
+        preview.append(iframe);
+      } else {
+        const img = node('img');
+        img.src = fileObjectUrl;
+        img.alt = '原始上傳文件：' + selectedFile.name;
+        preview.append(img);
+      }
+      const link = node('a', '', '另開原始附件 ↗');
+      link.href = fileObjectUrl;
+      link.target = '_blank';
+      link.rel = 'noopener';
+      preview.append(link);
+    }
+    if (!$('sourceDialog').open) $('sourceDialog').showModal();
+  }
+  function readDataUrl(file) {
+    return new Promise(function (resolve, reject) {
+      const reader = new FileReader();
+      reader.onload = function () { resolve(reader.result); };
+      reader.onerror = function () { reject(new Error('讀取附件失敗，請重新選擇。')); };
+      reader.readAsDataURL(file);
+    });
+  }
+  function redactContacts(text) {
+    return String(text || '').replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi, '[EMAIL 已遮罩]').replace(/\b09\d{8}\b/g, '[手機已遮罩]').replace(/0\d{1,2}[- ]\d{6,8}(?:\s*(?:#|分機)\s*\d+)?/g, '[電話已遮罩]');
+  }
+  async function checkApi() {
+    const controller = new AbortController();
+    const timeout = setTimeout(function () { controller.abort(); }, 5000);
+    try {
+      const response = await fetch('/api/status', { signal: controller.signal, headers: { Accept: 'application/json' } });
+      if (!response.ok || !(response.headers.get('content-type') || '').includes('application/json')) throw new Error('not configured');
+      const data = await response.json();
+      api = { configured: data.configured === true, model: data.model || '', checked: true };
+    } catch (_) { api = { configured: false, model: '', checked: true }; }
+    finally { clearTimeout(timeout); }
+    $('apiStatus').classList.toggle('connected', api.configured);
+    $('apiStatus').replaceChildren(node('i'), document.createTextNode(api.configured ? 'OpenAI 已啟用' : '示範模式 · 可手動輸入'));
+    if (!activeScenario) setExtractionNote(api.configured ? '可將本次文件送交 OpenAI 整理，擷取後仍需人工確認。' : '此模式未啟用 AI。可使用合成示範，或手動輸入付款與資金資料。');
+  }
+  async function extract() {
+    if (busy) return;
+    if (!api.configured) {
+      setExtractionNote('目前未啟用 OpenAI。內建合成示範可完整操作；上傳案例請人工填入欄位。', 'warning');
+      toast('AI 尚未啟用。請直接填入下方付款欄位，或選擇合成示範。');
+      $('supplierName').focus();
+      return;
+    }
+    if (!$('apiConsent').checked) {
+      setExtractionNote('請先確認要送出的內容，並勾選同意傳至 OpenAI API。文字遮罩只處理常見 Email／電話格式；附件以原檔傳送。', 'warning');
+      $('apiConsent').focus();
+      return;
+    }
+    const originalText = $('documentText').value.trim();
+    if (activeTab === 'file' && !selectedFile) { setExtractionNote('請先選擇 PDF 或圖片。', 'warning'); return; }
+    if (activeTab === 'text' && !originalText) { setExtractionNote('請先貼上請款單或廠商通知文字。', 'warning'); $('documentText').focus(); return; }
+    busy = true;
+    $('analyzeButton').disabled = true;
+    $('analyzeLabel').textContent = '掌櫃正在讀文件…';
+    const serial = ++extractionSerial;
+    const inputVersion = state.version;
+    const controller = new AbortController();
+    extractionAbort = controller;
+    const timeout = setTimeout(function () { controller.abort(); }, 90000);
+    try {
+      const payload = { text: $('maskText').checked ? redactContacts(originalText) : originalText };
+      if (activeTab === 'file' && selectedFile) payload.file = { name: selectedFile.name, type: selectedFile.type || (/\.pdf$/i.test(selectedFile.name) ? 'application/pdf' : 'image/jpeg'), data: await readDataUrl(selectedFile) };
+      const response = await fetch('/api/extract', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload), signal: controller.signal });
+      let result;
+      try { result = await response.json(); } catch (_) { throw new Error('AI 服務未回傳可讀結果，請使用人工輸入。'); }
+      if (!response.ok) throw new Error(typeof result.error === 'string' ? result.error : ((result.error && result.error.message) || '文件整理失敗，請稍後再試。'));
+      if (serial !== extractionSerial) return;
+      if (state.version !== inputVersion) { toast('整理期間您已修改資料，這次結果未套用。請重新整理，以保留您的修改。'); return; }
+      if (result.provider !== 'openai' || !result.data || typeof result.data !== 'object') throw new Error('此回應沒有確認來自 OpenAI，未套用辨識結果。');
+      const data = result.data;
+      Object.keys(fieldNames).forEach(function (key) {
+        if (key === 'amount') state.payment.amount = numberOrNull(data.amount);
+        else state.payment[key] = data[key] === null || data[key] === undefined ? '' : String(data[key]).slice(0, 180);
+      });
+      state.payment.emailUrgency = data.emailUrgency === true;
+      state.payment.emailChangeRequest = data.emailChangeRequest === true;
+      const supplier = state.suppliers.find(function (item) { return (state.payment.taxId && item.taxId === state.payment.taxId) || item.name === state.payment.supplierName; });
+      state.payment.supplierId = supplier ? supplier.id : '';
+      state.document.name = selectedFile && activeTab === 'file' ? selectedFile.name : '貼上請款文字';
+      state.document.text = originalText;
+      state.document.evidence = Array.isArray(data.evidence) ? data.evidence.slice(0, 30).filter(function (item) { return item && typeof item === 'object'; }).map(function (item) { return { field: String(item.field || '').slice(0, 80), quote: String(item.quote || '').slice(0, 1600), source: String(item.source || state.document.name).slice(0, 160) }; }) : [];
+      state.document.provider = 'openai';
+      state.document.model = result.model || api.model;
+      mutate({ payment: true, identity: true });
+      fillInputs();
+      setExtractionNote('已由 OpenAI 整理欄位。請對照原文，修正後點選「我已核對上述欄位」；缺漏欄位不會自動補猜。');
+      toast('AI 已整理文件，下一步請人工核對帳號、金額與日期。');
+    } catch (error) {
+      if (serial !== extractionSerial) return;
+      setExtractionNote(error.name === 'AbortError' ? '文件整理逾時，請再試一次或人工輸入。' : String(error.message || '文件整理失敗'), 'error');
+    } finally {
+      clearTimeout(timeout);
+      if (serial === extractionSerial) {
+        busy = false;
+        extractionAbort = null;
+        $('analyzeButton').disabled = false;
+        $('analyzeLabel').textContent = '用 AI 整理欄位';
+      }
+    }
+  }
+  function acceptFile(file) {
+    if (!file) return;
+    if (file.size > 8 * 1024 * 1024) { toast('文件超過 8 MB，請縮小檔案後重新上傳。'); $('documentFile').value = ''; return; }
+    const allowed = ['application/pdf', 'image/png', 'image/jpeg', 'image/webp'];
+    if (!allowed.includes(file.type) && !/\.(pdf|png|jpe?g|webp)$/i.test(file.name)) { toast('請使用 PDF、PNG、JPG 或 WebP 文件。'); $('documentFile').value = ''; return; }
+    loadBlank(false, false);
+    selectedFile = file;
+    state.document.name = file.name;
+    $('selectedFileName').textContent = file.name + ' · ' + (file.size / 1024 / 1024).toFixed(2) + ' MB';
+    switchTab('file');
+    render();
+    setExtractionNote(api.configured ? '已選擇附件。請確認原檔已去識別化，勾選同意後再送交 AI 整理。' : '已選擇附件，目前未啟用 AI。可查看原檔，並人工填入下方欄位。', api.configured ? '' : 'warning');
+    toast('已為這份附件建立空白案例，不會沿用合成的供應商與金流資料。');
+  }
+  function confirmPayment() {
+    const payment = state.payment;
+    if (!String(payment.supplierName || '').trim() || !/^\d{8}$/.test(payment.taxId || '') || !cleanAccount(payment.account) || !Number.isFinite(payment.amount) || payment.amount <= 0 || !validDate(payment.dueDate) || !String(payment.invoiceNo || '').trim()) {
+      toast('請補齊供應商、8 位統編、帳號、正數金額、付款日及請款單號。');
+      $('fieldsConfirmedText').textContent = '關鍵欄位尚不完整，請補齊後再確認';
+      return;
+    }
+    state.payment.fieldsConfirmed = true;
+    mutate();
+    toast('欄位已標記為人工確認。請繼續處理掌櫃提醒。');
+  }
+  function saveBaseline() {
+    const account = $('baselineAccount').value.trim();
+    const phone = $('baselinePhone').value.trim();
+    if (!state.payment.supplierName.trim() || !/^\d{8}$/.test(state.payment.taxId || '') || !/^\d{5,30}$/.test(cleanAccount(account)) || !phone) {
+      toast('請先填入供應商名稱、8 位統編，以及可信來源的既有帳號與聯絡窗口。');
+      return;
+    }
+    let supplier = state.suppliers.find(function (item) { return item.taxId === state.payment.taxId; });
+    if (!supplier) {
+      supplier = { id: uniqueId('SUP'), name: state.payment.supplierName, taxId: state.payment.taxId, accounts: [], phone: phone };
+      state.suppliers.push(supplier);
+    }
+    if (!supplier.accounts.some(function (old) { return cleanAccount(old) === cleanAccount(account); })) supplier.accounts.push(account);
+    supplier.phone = phone;
+    state.payment.supplierId = supplier.id;
+    mutate({ identity: true });
+    toast('已保存人工確認的基準。原帳號已保留；這不是銀行戶名查驗。');
+  }
+  function addSchedule(event) {
+    event.preventDefault();
+    const amount = numberOrNull($('newAmount').value);
+    const date = $('newDate').value;
+    const label = $('newLabel').value.trim();
+    if (!validDate(date) || !Number.isFinite(amount) || amount <= 0 || !label) { toast('請填入有效日期、項目及正數金額。'); return; }
+    state.schedule.push({ id: uniqueId('SCH'), date: date, type: $('newType').value, amount: amount, label: label, certainty: $('newCertainty').value });
+    state.cash.scheduleComplete = false;
+    $('scheduleComplete').checked = false;
+    $('newLabel').value = '';
+    $('newAmount').value = '';
+    mutate();
+    toast('已加入排程。請重新確認未來收付款是否完整。');
+  }
+  function parseCsv(text) {
+    const rows = [];
+    let row = [], value = '', quoted = false;
+    text = String(text).replace(/^\uFEFF/, '');
+    for (let i = 0; i < text.length; i++) {
+      const char = text[i];
+      if (char === '"') {
+        if (quoted && text[i + 1] === '"') { value += '"'; i++; }
+        else if (quoted || !value.length) quoted = !quoted;
+        else throw new Error('CSV 引號格式錯誤。請使用下載範本。');
+      } else if (char === ',' && !quoted) { row.push(value); value = ''; }
+      else if ((char === '\n' || char === '\r') && !quoted) {
+        if (char === '\r' && text[i + 1] === '\n') i++;
+        row.push(value);
+        if (row.some(function (cell) { return cell.trim(); })) rows.push(row);
+        row = []; value = '';
+      } else value += char;
+    }
+    if (quoted) throw new Error('CSV 有未結束的引號。');
+    row.push(value);
+    if (row.some(function (cell) { return cell.trim(); })) rows.push(row);
+    return rows;
+  }
+  async function importCsv(file) {
+    if (!file) return;
+    if (file.size > 1024 * 1024) { toast('CSV 請小於 1 MB，最多匯入 1,000 筆。'); return; }
+    try {
+      const rows = parseCsv(await file.text());
+      if (rows.length < 2) throw new Error('CSV 至少需要欄位列與一筆資料。');
+      if (rows.length > 1001) throw new Error('每次最多匯入 1,000 筆排程。');
+      const headers = rows.shift().map(function (header) { return header.trim().toLowerCase(); });
+      const aliases = { date: ['date', '日期'], type: ['type', '收付', '類型'], amount: ['amount', '金額'], label: ['label', '項目', '名稱'], certainty: ['certainty', '確定性'], linkedPaymentId: ['linkedpaymentid'] };
+      const positions = {};
+      Object.keys(aliases).forEach(function (key) { positions[key] = headers.findIndex(function (header) { return aliases[key].includes(header); }); });
+      if (['date', 'type', 'amount', 'label'].some(function (key) { return positions[key] < 0; })) throw new Error('需要 date,type,amount,label 欄位，請先下載 CSV 範本。');
+      const imported = rows.map(function (row, index) {
+        const cell = function (key) { return positions[key] < 0 ? '' : String(row[positions[key]] || '').trim(); };
+        const types = { in: 'in', out: 'out', '收入': 'in', '支出': 'out' };
+        const certainty = { confirmed: 'confirmed', expected: 'expected', '已確認': 'confirmed', '預期': 'expected', '': 'confirmed' }[cell('certainty')];
+        const type = types[cell('type').toLowerCase()];
+        const rawAmount = cell('amount');
+        const amount = numberOrNull(rawAmount);
+        if (!validDate(cell('date')) || !type || !certainty || !/^(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d{1,2})?$/.test(rawAmount) || amount <= 0 || !cell('label')) throw new Error('CSV 第 ' + (index + 2) + ' 列有無效日期、收付類型、金額或名稱；尚未匯入任何資料。');
+        const result = { id: uniqueId('CSV'), date: cell('date'), type: type, amount: amount, label: cell('label').slice(0, 180), certainty: certainty };
+        if (cell('linkedPaymentId') === 'current' || cell('linkedPaymentId') === state.payment.id) result.linkedPaymentId = state.payment.id;
+        return result;
+      });
+      state.schedule = state.schedule.concat(imported);
+      state.cash.scheduleComplete = false;
+      $('scheduleComplete').checked = false;
+      mutate();
+      toast('已加入 ' + imported.length + ' 筆排程。請重新確認完整性，勿重複加入本次付款。');
+    } catch (error) { toast(error.message || 'CSV 匯入失敗，請使用下載範本。'); }
+    finally { $('scheduleCsv').value = ''; }
+  }
+  function download(content, type, filename) {
+    const url = URL.createObjectURL(new Blob([content], { type: type }));
+    const link = node('a');
+    link.href = url;
+    link.download = filename;
+    document.body.append(link);
+    link.click();
+    link.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 2000);
+  }
+  function record() {
+    return {
+      product: 'Hokii 錢掌櫃', team: 'Pengwin', exportedAt: new Date().toISOString(),
+      mode: activeScenario ? 'synthetic-demo' : 'user-provided',
+      disclaimer: '競賽 MVP；未執行匯款、未核貸。未查詢銀行灰名單、警示帳戶及受款戶名。本機紀錄不是銀行授權憑證。',
+      version: state.version, state: state, evaluation: evaluation,
+      review: approval && approval.snapshot === Engine.snapshot(state) ? { status: 'reviewed', by: approval.by, at: approval.at, note: approval.note, version: approval.version } : { status: invalidatedAt ? 'invalidated' : 'pending', invalidatedAt: invalidatedAt }
+    };
+  }
+  function escapeHtml(value) { return String(value === undefined || value === null ? '' : value).replace(/[&<>"']/g, function (char) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]; }); }
+  function recordHtml(data) {
+    const p = data.state.payment;
+    const reasons = data.evaluation.safety.reasons.concat(data.evaluation.cash.reasons);
+    const rows = data.state.schedule.map(function (item) { return '<tr><td>' + escapeHtml(item.date) + '</td><td>' + escapeHtml(item.label) + '</td><td>' + (item.type === 'in' ? '收入' : '支出') + '</td><td>' + escapeHtml(money(item.amount)) + '</td><td>' + (item.certainty === 'expected' ? '預期' : '已確認') + '</td></tr>'; }).join('');
+    const findings = reasons.map(function (reason) { return '<li><strong>' + escapeHtml(reason.message) + '</strong><p>' + escapeHtml(humanEvidence(reason.evidence)) + '</p><p>下一步：' + escapeHtml(reason.action) + '</p></li>'; }).join('');
+    const details = Object.keys(fieldNames).map(function (field) { return '<tr><th>' + escapeHtml(fieldNames[field]) + '</th><td>' + escapeHtml(field === 'amount' ? money(p[field]) : p[field]) + '</td></tr>'; }).join('');
+    return '<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Hokii 付款核對紀錄</title><style>body{font-family:system-ui,"Microsoft JhengHei",sans-serif;color:#182c48;line-height:1.8;max-width:840px;padding:35px;margin:auto;background:#faf9f6}h1{font-size:27px}h2{font-size:18px;margin-top:30px}small,p{color:#68778c;font-size:13px}table{width:100%;border-collapse:collapse;background:white}td,th{padding:10px;border-bottom:1px solid #e7ebf0;font-size:13px;text-align:left}th{width:150px}li{padding-bottom:15px;font-size:13px}li p{margin:3px 0}.status{background:#fff2e6;padding:17px;border:1px solid #ead6c4;border-radius:8px}.source{white-space:pre-wrap;font-size:12px;padding:18px;background:#fff;border:1px solid #e7ebf0;overflow-wrap:anywhere}@media print{body{background:white;padding:15px}h2,table{break-inside:avoid}}</style></head><body><small>Pengwin · Hokii 錢掌櫃 · 競賽 MVP</small><h1>付款核對紀錄</h1><p>匯出時間：' + escapeHtml(new Date(data.exportedAt).toLocaleString('zh-TW')) + ' · 版本 ' + escapeHtml(data.version) + ' · ' + (data.mode === 'synthetic-demo' ? '合成示範資料' : '使用者提供資料') + '</p><div class="status"><strong>' + (data.review.status === 'reviewed' ? '已記錄人工覆核，未執行匯款' : (data.review.status === 'invalidated' ? '先前覆核已失效，需要重新確認' : '尚未完成覆核')) + '</strong><p>覆核人：' + escapeHtml(data.review.by || '未提供') + ' · ' + escapeHtml(data.review.note || '尚未記錄') + '</p></div><h2>本次付款</h2><table>' + details + '</table><h2>雙燈結果</h2><p>付款核對：' + escapeHtml(levelLabel[data.evaluation.safety.level]) + ' · ' + escapeHtml(data.evaluation.safety.title) + '</p><p>資金試算：' + escapeHtml(levelLabel[data.evaluation.cash.level]) + ' · ' + escapeHtml(data.evaluation.cash.title) + '</p><p>30 天最低餘額：NT$ ' + escapeHtml(money(data.evaluation.cash.minBalance)) + ' · 日期：' + escapeHtml(data.evaluation.cash.minDate || '未提供') + ' · 缺口：NT$ ' + escapeHtml(money(data.evaluation.cash.gap)) + '</p><h2>核對依據與建議</h2><ul>' + findings + '</ul><h2>收付款排程（本筆另計一次）</h2><table><tr><th>日期</th><th>項目</th><th>收付</th><th>金額</th><th>確定性</th></tr>' + rows + '</table><h2>本次文件原文</h2><div class="source">' + escapeHtml(data.state.document.text || '未提供文字原文；附件需另外留存。') + '</div><h2>使用範圍</h2><p>' + escapeHtml(data.disclaimer) + '</p></body></html>';
+  }
+  function approve() {
+    const by = $('reviewBy').value.trim();
+    if (!by || !evaluation.readyForReview) { toast('請先處理待補資料與異常，並填入覆核人姓名。'); return; }
+    if (state.verification.accountChangeConfirmed && !state.verification.note.trim()) { toast('帳號變更查證需要記錄確認方式與可信窗口。'); return; }
+    approval = { by: by, note: state.verification.note || '', at: new Date().toISOString(), version: state.version, snapshot: Engine.snapshot(state) };
+    invalidatedAt = null;
+    try { localStorage.setItem('hokii-mvp-last-review', JSON.stringify({ by: approval.by, at: approval.at, version: approval.version, mode: activeScenario ? 'synthetic-demo' : 'user-provided', note: '本機 MVP 紀錄，非銀行授權' })); } catch (_) {}
+    renderReview();
+    toast('已記錄人工覆核。掌櫃不執行匯款，請至正式銀行服務完成付款。');
+  }
+  function fundingSummary() {
+    const cash = evaluation.cash;
+    const summary = [
+      'Hokii 錢掌櫃｜資金需求摘要', 'Pengwin 競賽 MVP · 非貸款核准或撥款保證',
+      '資料模式：' + (activeScenario ? '合成示範' : '使用者輸入'), '',
+      '餘額資料日：' + (state.cash.balanceDate || '未提供'),
+      '可用餘額：NT$ ' + money(state.cash.balance),
+      '本次付款：' + (state.payment.supplierName || '未提供') + '／NT$ ' + money(state.payment.amount) + '／' + (state.payment.dueDate || '未提供'),
+      '30 天最低餘額：NT$ ' + money(cash.minBalance) + '／' + (cash.minDate || '未提供'),
+      '試算資金缺口：NT$ ' + money(cash.gap),
+      '預期收款延後 7 天時的缺口：NT$ ' + money(cash.stressGap),
+      '資料狀態：' + cash.title,
+      '收付款完整性：' + (state.cash.scheduleComplete ? '使用者已確認' : '尚未確認，數字僅供預覽'), '',
+      '下一步：核對入帳與付款日期，評估應收款追蹤、付款協調與周轉需求。',
+      '申請中的貸款未列入可用資金。實際貸款須由銀行審查、簽約與撥款。',
+      '臺企銀官方微企享 e 貸入口：https://www.tbb.com.tw/zh-tw/business/loans/online-apply/microenterprise-online-loans'
+    ].join('\n');
+    openSource('資金需求摘要', summary);
+    download('\uFEFF' + summary, 'text/plain;charset=utf-8', 'Hokii_資金需求摘要_' + today() + '.txt');
+  }
+  function bindEvents() {
+    $('textTab').addEventListener('click', function () { switchTab('text'); });
+    $('fileTab').addEventListener('click', function () { switchTab('file'); });
+    $('blankCase').addEventListener('click', function () { loadBlank(true); switchTab('text'); });
+    $('resetScenario').addEventListener('click', function () { if (activeScenario) loadScenario(activeScenario, true); else loadBlank(true); });
+    $('showDocument').addEventListener('click', function () { openSource(state.document.name || '本次文件', state.document.text); });
+    $('closeDialog').addEventListener('click', function () { $('sourceDialog').close(); });
+    $('sourceDialog').addEventListener('click', function (event) { if (event.target === $('sourceDialog')) { const box = $('sourceDialog').getBoundingClientRect(); if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) $('sourceDialog').close(); } });
+    $('documentText').addEventListener('input', function () {
+      state.document.text = this.value;
+      state.document.evidence = [];
+      state.document.provider = 'manual';
+      mutate({ payment: true });
+      setExtractionNote(activeScenario ? '原文已修改，欄位需要重新核對。供應商與資金仍為合成資料；使用自己的文件請先開始空白案例。' : '原文已修改，請重新整理或人工更新付款欄位。', activeScenario ? 'warning' : '');
+    });
+    $('documentFile').addEventListener('change', function () { acceptFile(this.files[0]); });
+    const drop = $('dropZone');
+    ['dragenter', 'dragover'].forEach(function (eventName) { drop.addEventListener(eventName, function (event) { event.preventDefault(); drop.classList.add('dragging'); }); });
+    ['dragleave', 'drop'].forEach(function (eventName) { drop.addEventListener(eventName, function (event) { event.preventDefault(); drop.classList.remove('dragging'); }); });
+    drop.addEventListener('drop', function (event) { if (event.dataTransfer && event.dataTransfer.files.length) acceptFile(event.dataTransfer.files[0]); });
+    $('analyzeButton').addEventListener('click', extract);
+    $('confirmFields').addEventListener('click', confirmPayment);
+    $('saveBaseline').addEventListener('click', saveBaseline);
+    document.querySelectorAll('[data-payment]').forEach(function (input) {
+      input.addEventListener(input.type === 'checkbox' || input.tagName === 'SELECT' || input.type === 'date' ? 'change' : 'input', function () {
+        const field = input.dataset.payment;
+        state.payment[field] = input.type === 'checkbox' ? input.checked : (field === 'amount' ? numberOrNull(input.value) : input.value);
+        mutate({ payment: true, identity: ['account', 'taxId', 'supplierName', 'supplierId'].includes(field) });
+      });
+    });
+    [['cashBalance', 'balance'], ['cashReserve', 'reserve']].forEach(function (item) { $(item[0]).addEventListener('input', function () { state.cash[item[1]] = numberOrNull(this.value); mutate(); }); });
+    $('balanceDate').addEventListener('change', function () { state.cash.balanceDate = this.value; mutate(); });
+    $('scheduleComplete').addEventListener('change', function () { state.cash.scheduleComplete = this.checked; mutate(); });
+    $('reviewBy').addEventListener('input', function () { state.verification.by = this.value; mutate(); });
+    $('reviewNote').addEventListener('input', function () { state.verification.note = this.value; mutate(); });
+    $('accountChangeConfirmed').addEventListener('change', function () { state.verification.accountChangeConfirmed = this.checked; state.verification.account = this.checked ? state.payment.account : ''; mutate(); });
+    $('addScheduleForm').addEventListener('submit', addSchedule);
+    $('importSchedule').addEventListener('click', function () { $('scheduleCsv').click(); });
+    $('scheduleCsv').addEventListener('change', function () { importCsv(this.files[0]); });
+    $('downloadCsv').addEventListener('click', function () { download('\uFEFFdate,type,amount,label,certainty\n' + today() + ',out,50000,範例租金支出,confirmed\n' + today() + ',in,100000,範例客戶貨款,expected\n', 'text/csv;charset=utf-8', 'Hokii_收付款排程範本.csv'); });
+    $('approveButton').addEventListener('click', approve);
+    $('exportHtml').addEventListener('click', function () { download(recordHtml(record()), 'text/html;charset=utf-8', 'Hokii_付款核對紀錄_' + today() + '_v' + state.version + '.html'); toast('已下載核對紀錄，可用瀏覽器開啟或列印成 PDF。'); });
+    $('exportJson').addEventListener('click', function () { download(JSON.stringify(record(), null, 2), 'application/json;charset=utf-8', 'Hokii_付款核對紀錄_' + today() + '_v' + state.version + '.json'); });
+    $('fundingSummary').addEventListener('click', fundingSummary);
+  }
+  if (!Engine) {
+    $('safetyTitle').textContent = '核對引擎未載入';
+    $('cashTitle').textContent = '請重新整理頁面';
+    $('scenarioDescription').textContent = '請確認 engine.js 與網站其他檔案位於同一資料夾。';
+    return;
+  }
+  Engine.scenarios.forEach(function (scenario) {
+    const button = node('button', 'scenario-chip');
+    button.type = 'button';
+    button.dataset.scenario = scenario.id;
+    button.append(node('span'), document.createTextNode(scenario.label));
+    button.title = scenario.description;
+    button.addEventListener('click', function () { loadScenario(scenario.id, true); });
+    $('scenarioChips').append(button);
+  });
+  bindEvents();
+  loadScenario('normal', false);
+  checkApi();
+})();
+</script>
+</body>
+</html>
